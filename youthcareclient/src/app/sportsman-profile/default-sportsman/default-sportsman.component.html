@@ -1,0 +1,12 @@
+<app-header-sportsman (toggleSideBarForMe)="sideBarToggler($event)"></app-header-sportsman>
+
+<mat-drawer-container>
+    <mat-drawer mode="side" [opened]="sideBarOpen">
+        <app-sidebar-sportsman></app-sidebar-sportsman>
+    </mat-drawer>
+    <mat-drawer-content>
+        
+        <router-outlet></router-outlet>
+
+    </mat-drawer-content>
+</mat-drawer-container>

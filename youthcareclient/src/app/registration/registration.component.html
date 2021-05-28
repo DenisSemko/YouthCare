@@ -1,0 +1,90 @@
+<div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
+    <a class="imgLogo" routerLink="/" routerLinkActive="active">
+      <img src="/assets/img/logo.png" class="logo">YouthCare
+      </a>
+    <ng-container>
+      <button mat-button (click)="useLanguage('en')" style="float:right;">
+          English
+      </button>
+      <button mat-button (click)="useLanguage('ukr')" style="float:right;">
+          Українська
+      </button>
+    </ng-container>
+    <mat-card class="box">
+      <mat-card-header>
+        <mat-card-title translate>registration.title</mat-card-title>
+      </mat-card-header>
+      <form class="example-form" [formGroup]="service.formModel" (ngSubmit)="onSubmit()" autocomplete="off">
+  
+        <mat-card-content>
+          <div fxFlex="50%">
+          <mat-form-field class="example-full-width">
+            <input matInput [placeholder]="'registration.name' | translate" formControlName="Name" required>
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width">
+            <input matInput [placeholder]="'registration.surname' | translate" formControlName="Surname" required>
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label translate>registration.date_birth</mat-label>
+            <input matInput [max]="maxDateSportsman" [matDatepicker]="picker" formControlName="BirthDate" required>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width" required>
+            <mat-label translate>registration.gender</mat-label>
+            <mat-select formControlName="Gender">
+              <mat-option *ngFor="let g of gender" [value]="g">
+                {{g}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+      </div>
+        <div fxFlex="50%">
+          <mat-form-field class="example-full-width">
+            <input matInput [placeholder]="'registration.username' | translate" formControlName="Username" required>
+          </mat-form-field>
+          <mat-form-field class="example-full-width">
+            <input matInput [placeholder]="'registration.email' | translate" formControlName="Email" required>
+            <!--<label class="text-danger" *ngIf="service.formModel.get('Email').errors?.email">Invalid email address!</label>-->
+          </mat-form-field>
+  
+          <mat-form-field class="example-full-width">
+            <input [placeholder]="'registration.password' | translate" matInput [type]="hide ? 'password' : 'text'" formControlName="PasswordHash" required>
+            <!--<label class="text-danger" *ngIf="service.formModel.get('PasswordHash').errors?.minlength">Minimum length is 8!</label>-->
+              <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+              </button>
+          </mat-form-field>
+          <mat-form-field class="example-full-width" required>
+            <mat-label translate>registration.section</mat-label>
+            <div>
+            <mat-select formControlName="BelongSection">
+              <mat-option *ngFor="let section of sectionsList" [value]="section.id">
+                {{section.name}}
+              </mat-option>
+            </mat-select>
+          </div>
+          </mat-form-field>
+  
+          <mat-form-field class="example-full-width" required>
+            <mat-label translate>registration.role</mat-label>
+            <mat-select formControlName="UserType">
+              <mat-option *ngFor="let role of roles" [value]="role">
+                {{role}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          </div>
+          
+        </mat-card-content>
+  
+        <button mat-stroked-button color="primary" class="btn-block" translate>{{'registration.register' | translate }}</button>
+        <br><br>
+        <a class="router" routerLink="/login" routerLinkActive="active" translate>registration.login</a>
+  
+      </form>
+    </mat-card>
+  </div>

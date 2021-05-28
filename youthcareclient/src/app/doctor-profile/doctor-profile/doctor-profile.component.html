@@ -1,0 +1,78 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card" *ngIf="userDetails">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title" translate>my-profile-all.title</h4>
+                        <p class="card-category">{{'my-profile-all.category' | translate }} : {{ userDetails.userType }}</p>
+                    </div>
+                    <div class="card-body">
+                        <form autocomplete="off" [formGroup]="service.formModel" (ngSubmit)="onSubmit()">
+                            <div class="row">
+                                <div class="col-md-5">
+                                  <mat-form-field class="example-full-width">
+                                      <input matInput [placeholder]="'registration.name' | translate" [(ngModel)]="userDetails.name" formControlName="Name" type="text">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-3">
+                                    <mat-form-field class="example-full-width">
+                                      <input matInput [placeholder]="'my-profile-all.middle_name' | translate" [(ngModel)]="userDetails.middleName" formControlName="MiddleName" type="text">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-4">
+                                    <mat-form-field class="example-full-width">
+                                      <input matInput [placeholder]="'registration.surname' | translate" [(ngModel)]="userDetails.surname" formControlName="Surname" type="text">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-5">
+                                  <mat-form-field class="example-full-width">
+                                    <input matInput [max]="maxDateDoctor" [matDatepicker]="picker" [(ngModel)]="userDetails.birthDate" formControlName="BirthDate" [placeholder]="'my-profile-all.birth_date' | translate">
+                                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker></mat-datepicker>
+                                  </mat-form-field>
+                                </div>
+                                <div class="col-md-4">
+                                  <mat-form-field class="example-full-width">
+                                    <input matInput [placeholder]="'my-profile-all.phone_number' | translate" [(ngModel)]="userDetails.phoneNumber" formControlName="PhoneNumber" type="text">
+                                  </mat-form-field>
+                                </div>
+                                <div class="col-md-3">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput [placeholder]="'my-profile-all.address' | translate" [(ngModel)]="userDetails.address" formControlName="Address" type="text">
+                                    </mat-form-field>
+                                  </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-5">
+                                  <mat-form-field class="example-full-width">
+                                    <input matInput [placeholder]="'registration.email' | translate" [(ngModel)]="userDetails.email" formControlName="Email" type="email">
+                                  </mat-form-field>
+                                </div>
+                                <div class="col-md-4">
+                                  <mat-form-field class="example-full-width">
+                                    <input matInput [placeholder]="'registration.username' | translate" [(ngModel)]="userDetails.userName" formControlName="Username" type="text">
+                                  </mat-form-field>
+                                </div>
+                                <div class="col-md-3">
+                                  <mat-form-field class="example-full-width">
+                                    <input matInput [placeholder]="'registration.password' | translate" type="password" matInput [(ngModel)]="userDetails.passwordHash" [type]="hide ? 'password' : 'text'" formControlName="PasswordHash">
+                                    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                        </button>
+                                  </mat-form-field>
+                                  <input [(ngModel)]="userDetails.userType" formControlName="UserType" style="display: none;">
+                                </div>
+                            </div>
+                            <button mat-raised-button type="submit" class="btn btn-danger pull-right btn-round">{{'my-profile-all.update' | translate }}</button>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+  

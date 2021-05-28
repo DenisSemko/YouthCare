@@ -1,0 +1,47 @@
+<br><br><br><br><br><br>
+<a [routerLink]="" class="btn btn-white btn-animate" (click)="openDialog()">click me</a>
+<div class="mat-elevation-z1" *ngIf="userDetails">
+   <p>{{'doctor-sportsmen-list.title' | translate }} {{userDetails.belongSection.name}} {{'doctor-sportsmen-list.title_2' | translate }}</p>
+    <table mat-table [dataSource]="dataSource" matSort>
+  
+      <ng-container matColumnDef="Id">
+        <th mat-header-cell *matHeaderCellDef  mat-sort-header> Id</th>
+        <td mat-cell *matCellDef="let element" class="left-text"> {{element.id }} </td>
+      </ng-container>
+  
+      <ng-container matColumnDef="Name">
+        <th mat-header-cell *matHeaderCellDef  mat-sort-header> Name </th>
+        <td mat-cell *matCellDef="let element" class="left-text"> {{element.name}} </td>
+      </ng-container>
+  
+      <ng-container matColumnDef="Surname">
+        <th mat-header-cell *matHeaderCellDef  mat-sort-header> Surname </th>
+        <td mat-cell *matCellDef="let element" class="left-text"> {{element.surname}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="BirthDate">
+        <th mat-header-cell *matHeaderCellDef  mat-sort-header> BirthDate </th>
+        <td mat-cell *matCellDef="let element" class="left-text"> {{element.birthDate | date: 'longDate'}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Email">
+        <th mat-header-cell *matHeaderCellDef  mat-sort-header> Email </th>
+        <td mat-cell *matCellDef="let element" class="left-text"> {{element.email}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Username">
+        <th mat-header-cell *matHeaderCellDef  mat-sort-header> Username </th>
+        <td mat-cell *matCellDef="let element" class="left-text"> {{element.userName}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="UserType">
+        <th mat-header-cell *matHeaderCellDef  mat-sort-header> User Type </th>
+        <td mat-cell *matCellDef="let element" class="left-text"> {{element.userType}} </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  
+    <mat-paginator [pageSizeOptions]="[5]"></mat-paginator>
+    </div>

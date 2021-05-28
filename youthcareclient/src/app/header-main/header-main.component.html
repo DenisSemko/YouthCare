@@ -1,0 +1,28 @@
+<mat-toolbar class="nav" id="navbar">
+    <span>
+    <a class="imgLogo" routerLink="/" routerLinkActive="active">
+    YouthCare
+    </a>
+    <a class="statistics" id="statistics" routerLink="/charts" routerLinkActive="active" translate>header-main.statistics</a>
+    <a class="contact" id="contact" routerLink="/contact-us" translate>header-main.contact</a>
+    </span>
+    
+    <div fxLayout="row" fxShow="false" fxShow.gt-sm>
+    <ng-container>
+        <button mat-button (click)="useLanguage('en')">
+            English
+        </button>
+        <button mat-button (click)="useLanguage('ukr')">
+            Українська
+        </button>
+    </ng-container>
+    <a class="reg" id="reg" routerLink="/registration" routerLinkActive="active" translate>header-main.reg</a>
+    <a class="log" id="log" routerLink="/login" routerLinkActive="active" translate>header-main.log</a>
+    </div>
+</mat-toolbar>
+
+
+
+
+
+

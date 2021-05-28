@@ -1,0 +1,31 @@
+<app-header-main></app-header-main>
+<div class="silder">
+  <div class="silder-content">
+    <h1 id="get_to_know" translate>statistics.get_to_know</h1>
+  </div>
+</div>
+
+<div class="features">
+  <h1 id="statistics_title" translate>statistics.statistics_title</h1>
+  <div class="row">
+    <div class="column">
+      <mat-icon aria-hidden="false" aria-label="Example home icon">info</mat-icon>
+      <h3 id="important_title" translate>statistics.important_title</h3>
+      <p id="important_body" translate>statistics.important_body_1 <br> statistics.important_body_2
+      </p>
+    </div>
+  </div>
+</div>
+<div echarts [options]="options" class="demo-chart"
+  (chartInit)="onChartEvent($event, 'chartInit')"
+  (chartClick)="onChartEvent($event, 'chartClick')"
+  (chartDblClick)="onChartEvent($event, 'chartDblClick')"
+  (chartMouseDown)="onChartEvent($event, 'chartMouseDown')"
+  (chartMouseUp)="onChartEvent($event, 'chartMouseUp')"
+  (chartMouseOver)="onChartEvent($event, 'chartMouseOver')"
+  (chartMouseOut)="onChartEvent($event, 'chartMouseOut')"
+  (chartGlobalOut)="onChartEvent($event, 'chartGlobalOut')"
+  (chartContextMenu)="onChartEvent($event, 'chartContextMenu')"
+  (chartDataZoom)="onChartEvent($event, 'chartDataZoom')">
+</div>
+<app-footer-main></app-footer-main>

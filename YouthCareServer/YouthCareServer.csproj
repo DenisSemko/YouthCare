@@ -1,0 +1,54 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>ed07cb88-27ab-4208-a667-4a98b94f7eab</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Migrations\20210312103814_UpdateAnalysisModel.cs" />
+    <Compile Remove="Migrations\20210312103814_UpdateAnalysisModel.Designer.cs" />
+    <Compile Remove="Migrations\20210414104651_UpdateUserr.cs" />
+    <Compile Remove="Migrations\20210414104651_UpdateUserr.Designer.cs" />
+    <Compile Remove="Migrations\20210414152559_InitialRoles.cs" />
+    <Compile Remove="Migrations\20210414152559_InitialRoles.Designer.cs" />
+    <Compile Remove="Migrations\20210414160454_InitialRoles.cs" />
+    <Compile Remove="Migrations\20210414160454_InitialRoles.Designer.cs" />
+    <Compile Remove="Migrations\20210414183439_InitialRoless.cs" />
+    <Compile Remove="Migrations\20210414183439_InitialRoless.Designer.cs" />
+    <Compile Remove="Migrations\20210414184423_InitialRoless.cs" />
+    <Compile Remove="Migrations\20210414184423_InitialRoless.Designer.cs" />
+    <Compile Remove="Migrations\20210414185023_InitialRoless.cs" />
+    <Compile Remove="Migrations\20210414185023_InitialRoless.Designer.cs" />
+    <Compile Remove="Migrations\20210415205513_UpdateSection.cs" />
+    <Compile Remove="Migrations\20210415205513_UpdateSection.Designer.cs" />
+    <Compile Remove="Migrations\20210417205335_Update.cs" />
+    <Compile Remove="Migrations\20210417205335_Update.Designer.cs" />
+    <Compile Remove="Migrations\20210421085158_UpdateAnalysisModel.cs" />
+    <Compile Remove="Migrations\20210421085158_UpdateAnalysisModel.Designer.cs" />
+    <Compile Remove="Migrations\20210421085309_UpdateAnalysisModel.cs" />
+    <Compile Remove="Migrations\20210421085309_UpdateAnalysisModel.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.9" />
+    <PackageReference Include="Microsoft.AspNetCore.Cors" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.9" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.9">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.0" />
+    <PackageReference Include="Syncfusion.Pdf.Net.Core" Version="19.1.0.57" />
+  </ItemGroup>
+
+  <ProjectExtensions><VisualStudio><UserProperties properties_4launchsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
+
+
+</Project>

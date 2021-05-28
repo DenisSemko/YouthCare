@@ -1,0 +1,56 @@
+<mat-toolbar class="nav">
+    <mat-toolbar-row>
+        <button mat-icon-button (click)="toggleSideBar()">
+            <mat-icon>menu</mat-icon>
+        </button>
+        <span>
+            <a class="imgLogo" routerLinkActive="active" routerLink="/sportsman/account" (click)="profileWarning()">
+                <img src="/assets/img/logo.png" class="logo">YouthCare
+            </a>
+        </span>
+
+
+        <div fxFlex fxLayout="row" fxLayoutAlign="flex-end">
+            <ul fxLayout="row" fxLayoutGap="20px">
+                <li>
+                    <ng-container>
+                        <button mat-button (click)="useLanguage('en')">
+                            English
+                        </button>
+                        <button mat-button (click)="useLanguage('ukr')">
+                            Українська
+                        </button>
+                    </ng-container>
+                </li>
+                <li>
+                    <button mat-icon-button> 
+                        <mat-icon>notifications</mat-icon>
+                    </button>
+                </li>
+                <li>
+                    <button mat-icon-button> 
+                        <mat-icon>settings</mat-icon>
+                    </button>
+                </li>
+                <li>
+                    <button mat-button [matMenuTriggerFor]="menu">
+                        <mat-icon>person_outline</mat-icon>
+                    </button>
+                    <mat-menu #menu="matMenu">
+                    <button mat-menu-item (click)="btnClick();" id="my_profile">
+                        <mat-icon>person</mat-icon>
+                        {{'header-profile-all.my_profile' | translate}}
+                    </button>
+                      <button mat-menu-item (click)="onLogout()" id="sign_out">
+                          <mat-icon>exit_to_app</mat-icon>
+                          {{'header-profile-all.sign_out' | translate}}
+                      </button>
+                    </mat-menu>
+                </li>
+            </ul>
+
+        </div>
+    
+    </mat-toolbar-row>
+</mat-toolbar>
+
