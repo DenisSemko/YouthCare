@@ -1,0 +1,85 @@
+{
+    "header-main": {
+        "statistics": "STATISTICS",
+        "contact": "CONTACT US",
+        "reg": "REGISTRATION",
+        "log": "LOGIN"
+    },
+    "about-main": {
+        "about": "About",
+        "disease_title": "What is YouthCare?",
+        "disease_body": "It's a system that provides young sportsmen easily check their health and consult the doctor before the competitions.",
+        "purpose_title": "What is the purpose?",
+        "purpose_body": "Whenever a young sportsman needs to get a permission for the competition, he spends a lot of time for that. All features are made for observing and controlling the situation to be sure that everything goes in a good way.",
+        "suggest_title": "What we suggest?",
+        "suggest_body": "We provide several features for observing sportsmen and stay connected with the personal doctor."
+    },
+    "statistics" : {
+        "get_to_know": "Get to know more",
+        "statistics_title": "The statistics about sport injuries",
+        "important_title": "What is important to know?",
+        "important_body_1": "A lot of young sporstmen get injuries during trainings or competitions. That is why, it is very important to check your health before each of the competition!",
+        "important_body_2": "Below you can see the percentage of injuries based on the kind of the sport."
+    }, 
+    "registration" : {
+        "title": "Register",
+        "name": "Name",
+        "surname": "Surname",
+        "date_birth": "Date of Birth:",
+        "username": "Username",
+        "email": "Email",
+        "password": "Password",
+        "section": "Choose a section...",
+        "role": "Choose a role...",
+        "gender": "Gender",
+        "register": "Register",
+        "login": "Already have an account? Go to Login Page!"
+    },
+    "login" : {
+        "title": "Log in",
+        "username": "Username",
+        "password": "Password",
+        "button": "Log in",
+        "registration": "Don't have an account yet? Go to Registration Page!"
+    },
+    "header-profile-all" : {
+        "my_profile": "My Profile",
+        "sign_out": "Sign Out"
+    },
+    "sidebar-all" : {
+        "section": "Section",
+        "activity": "My Activity",
+        "activity_2": "Other activity",
+        "sportsmen-list-doctor": "Sportsmen List",
+        "analysis-result-doctor": "Analysis Result",
+        "chat": "Chat",
+        "all_users_admin": "All Users",
+        "backup_admin": "System Backup",
+        "page_1": "Page1",
+        "page_2": "Page2",
+        "analysis": "Analysis",
+        "call_doctor": "Call Doctor",
+        "schedule": "Competitions Schedule"
+        
+    }, 
+    "my-profile-all" : {
+        "title": "Edit Profile",
+        "category": "User Type",
+        "middle_name": "Middle Name",
+        "birth_date": "BirthDate",
+        "phone_number": "Phone Number",
+        "address": "Address",
+        "update": "Update Profile"
+    },
+    "analysis" : {
+        "doctor": "Choose a doctor",
+        "type": "Choose a type",
+        "formula": "Only for BMR/BMI",
+        "measure": "Measure!",
+        "pass": "Pass the analysis"
+    }, 
+    "doctor-sportsmen-list": {
+        "title": "Sportsmen list of the",
+        "title_2": "Section"
+    }
+}
