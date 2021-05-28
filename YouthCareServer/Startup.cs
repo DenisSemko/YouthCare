@@ -128,7 +128,7 @@ options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             .AllowAnyHeader()
             .AllowAnyMethod());
 
-            //app.UseHttpsRedirection();
+            app.UseHttpsRedirection();
             app.UseDefaultFiles();
             app.UseStaticFiles();
 
