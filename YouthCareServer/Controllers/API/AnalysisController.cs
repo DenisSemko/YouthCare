@@ -3,12 +3,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using YouthCareServer.Models;
-using YouthCareServer.Services.Abstract;
-using YouthCareServer.Repository.Abstract;
+using CIL.Models;
+using BLL.Services.Abstract;
+using DAL.Repository.Abstract;
 using Microsoft.AspNetCore.Http;
-using YouthCareServer.DTOs;
+using CIL.DTOs;
 using Microsoft.EntityFrameworkCore;
+using DAL;
 
 namespace YouthCareServer.Controllers.API
 {
@@ -16,19 +17,19 @@ namespace YouthCareServer.Controllers.API
     [ApiController]
     public class AnalysisController : ControllerBase
     {
-        private readonly IAnalysisRepository analysisRepository;
+        private readonly IUnitOfWork unitOfWork;
         private readonly ApplicationContext myDbContext;
 
-        public AnalysisController(IAnalysisRepository analysisRepository, ApplicationContext myDbContext)
+        public AnalysisController(IUnitOfWork unitOfWork, ApplicationContext myDbContext)
         {
-            this.analysisRepository = analysisRepository;
+            this.unitOfWork = unitOfWork;
             this.myDbContext = myDbContext;
         }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Analysis>>> Get()
         {
-            return Ok(await analysisRepository.Get());
+            return Ok(await unitOfWork.AnalysisRepository.Get());
         }
 
         [HttpGet("{id:Guid}")]
@@ -36,7 +37,7 @@ namespace YouthCareServer.Controllers.API
         {
             try
             {
-                var result = await myDbContext.Analysis.Where(o => o.Id == id).Include(o => o.SportsmanUserId).Include(o => o.DoctorUserId).FirstOrDefaultAsync();
+                var result = await unitOfWork.AnalysisRepository.GetById(id);
 
                 if (result == null) return NotFound();
 
@@ -77,7 +78,7 @@ namespace YouthCareServer.Controllers.API
                     Result = analysisDto.Result
 
                 };
-                var result = await analysisRepository.Add(analysis);
+                var result = await unitOfWork.AnalysisRepository.Add(analysis);
                 return result;
 
             }
@@ -92,7 +93,7 @@ namespace YouthCareServer.Controllers.API
         {
             try
             {
-                var result = await analysisRepository.DeleteById(id);
+                var result = await unitOfWork.AnalysisRepository.DeleteById(id);
 
                 if (result == null) return NotFound();
 

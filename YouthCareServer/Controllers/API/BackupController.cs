@@ -55,32 +55,9 @@ namespace YouthCareServer.Controllers.API
             }
             catch (Exception ex)
             {
-                throw;
+                throw ex;
             }
         }
-        /* public void GetBackup()
-         {
-             SqlConnection sqlconn = new SqlConnection(configuration.GetConnectionString("DefaultConnection"));
-             SqlCommand sqlcmd = new SqlCommand();
-             SqlDataAdapter da = new SqlDataAdapter();
-             DataTable dt = new DataTable();
-             string backupDestination = "C:\\SQLBackUpFolder";
-
-             if (!System.IO.Directory.Exists(backupDestination))
-             {
-                 System.IO.Directory.CreateDirectory("D:\\SQLBackUpFolder");
-             }
-             try
-             {
-                 sqlconn.Open();
-                 sqlcmd = new SqlCommand("backup database YouthCareMainDb to disk='" + backupDestination + "\'" + DateTime.Now.ToString("ddMMyyyy_HHmmss") + ".Bak'", sqlconn);
-                 sqlcmd.ExecuteNonQuery();
-                 //Close connection
-                 sqlconn.Close();
-             }
-             catch (Exception ex)
-             {
-             }
-         }*/
+       
     }
 }

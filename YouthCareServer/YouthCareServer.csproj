@@ -6,31 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Migrations\20210312103814_UpdateAnalysisModel.cs" />
-    <Compile Remove="Migrations\20210312103814_UpdateAnalysisModel.Designer.cs" />
-    <Compile Remove="Migrations\20210414104651_UpdateUserr.cs" />
-    <Compile Remove="Migrations\20210414104651_UpdateUserr.Designer.cs" />
-    <Compile Remove="Migrations\20210414152559_InitialRoles.cs" />
-    <Compile Remove="Migrations\20210414152559_InitialRoles.Designer.cs" />
-    <Compile Remove="Migrations\20210414160454_InitialRoles.cs" />
-    <Compile Remove="Migrations\20210414160454_InitialRoles.Designer.cs" />
-    <Compile Remove="Migrations\20210414183439_InitialRoless.cs" />
-    <Compile Remove="Migrations\20210414183439_InitialRoless.Designer.cs" />
-    <Compile Remove="Migrations\20210414184423_InitialRoless.cs" />
-    <Compile Remove="Migrations\20210414184423_InitialRoless.Designer.cs" />
-    <Compile Remove="Migrations\20210414185023_InitialRoless.cs" />
-    <Compile Remove="Migrations\20210414185023_InitialRoless.Designer.cs" />
-    <Compile Remove="Migrations\20210415205513_UpdateSection.cs" />
-    <Compile Remove="Migrations\20210415205513_UpdateSection.Designer.cs" />
-    <Compile Remove="Migrations\20210417205335_Update.cs" />
-    <Compile Remove="Migrations\20210417205335_Update.Designer.cs" />
-    <Compile Remove="Migrations\20210421085158_UpdateAnalysisModel.cs" />
-    <Compile Remove="Migrations\20210421085158_UpdateAnalysisModel.Designer.cs" />
-    <Compile Remove="Migrations\20210421085309_UpdateAnalysisModel.cs" />
-    <Compile Remove="Migrations\20210421085309_UpdateAnalysisModel.Designer.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="10.1.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.9" />
@@ -43,9 +18,16 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="5.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.0" />
     <PackageReference Include="Syncfusion.Pdf.Net.Core" Version="19.1.0.57" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BLL\BLL.csproj" />
+    <ProjectReference Include="..\CIL\CIL.csproj" />
+    <ProjectReference Include="..\DIL\DIL.csproj" />
   </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties properties_4launchsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>

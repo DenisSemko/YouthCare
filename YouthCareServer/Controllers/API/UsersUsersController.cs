@@ -5,8 +5,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using YouthCareServer.Models;
-using YouthCareServer.Repository.Abstract;
+using CIL.Models;
+using DAL.Repository.Abstract;
+using DAL;
 
 namespace YouthCareServer.Controllers.API
 {
@@ -15,18 +16,18 @@ namespace YouthCareServer.Controllers.API
     public class UsersUsersController : ControllerBase
     {
         private readonly ApplicationContext myDbContext;
-        private readonly IUsersUsersRepository userRepository;
+        private readonly IUnitOfWork unitOfWork;
 
-        public UsersUsersController(ApplicationContext myDbContext, IUsersUsersRepository userRepository)
+        public UsersUsersController(ApplicationContext myDbContext, IUnitOfWork unitOfWork)
         {
             this.myDbContext = myDbContext;
-            this.userRepository = userRepository;
+            this.unitOfWork = unitOfWork;
         }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<UsersUsers>>> Get()
         {
-            return Ok(await userRepository.Get());
+            return Ok(await unitOfWork.UsersUsersRepository.Get());
         }
 
         [HttpGet("{id:Guid}/{type}")]
@@ -56,7 +57,7 @@ namespace YouthCareServer.Controllers.API
                     return BadRequest();
                 }
 
-                var result = await userRepository.Add(users);
+                var result = await unitOfWork.UsersUsersRepository.Add(users);
                 return result;
 
             }

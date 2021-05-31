@@ -3,9 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using YouthCareServer.Models;
-using YouthCareServer.Services.Abstract;
-using YouthCareServer.Repository.Abstract;
+using CIL.Models;
+using BLL.Services.Abstract;
+using DAL.Repository.Abstract;
 using Microsoft.AspNetCore.Http;
 
 
@@ -15,17 +15,17 @@ namespace YouthCareServer.Controllers.API
     [ApiController]
     public class TreatmentController : ControllerBase
     {
-        private readonly ITreatmentRepository treatmentRepository;
+        private readonly IUnitOfWork unitOfWork;
 
-        public TreatmentController(ITreatmentRepository treatmentRepository)
+        public TreatmentController(IUnitOfWork unitOfWork)
         {
-            this.treatmentRepository = treatmentRepository;
+            this.unitOfWork = unitOfWork;
         }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Treatment>>> Get()
         {
-            return Ok(await treatmentRepository.Get());
+            return Ok(await unitOfWork.TreatmentRepository.Get());
         }
 
         [HttpGet("{id:Guid}")]
@@ -33,7 +33,7 @@ namespace YouthCareServer.Controllers.API
         {
             try
             {
-                var result = await treatmentRepository.GetById(id);
+                var result = await unitOfWork.TreatmentRepository.GetById(id);
 
                 if (result == null) return NotFound();
 
@@ -56,7 +56,7 @@ namespace YouthCareServer.Controllers.API
                     return BadRequest();
                 }
 
-                var result = await treatmentRepository.Add(treatment);
+                var result = await unitOfWork.TreatmentRepository.Add(treatment);
                 return result;
 
             }
@@ -79,7 +79,7 @@ namespace YouthCareServer.Controllers.API
         {
             try
             {
-                var result = await treatmentRepository.DeleteById(id);
+                var result = await unitOfWork.TreatmentRepository.DeleteById(id);
 
                 if (result == null) return NotFound();
 

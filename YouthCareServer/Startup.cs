@@ -1,4 +1,5 @@
 using AutoMapper;
+using DIL;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -17,11 +18,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using YouthCareServer.Models;
-using YouthCareServer.Repository.Abstract;
-using YouthCareServer.Repository.Concrete;
-using YouthCareServer.Services.Abstract;
-using YouthCareServer.Services.Concrete;
 
 namespace YouthCareServer
 {
@@ -39,66 +35,7 @@ namespace YouthCareServer
         {
             services.AddAutoMapper(typeof(Startup));
 
-            services.AddDbContext<ApplicationContext>(options =>
-options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-
-            services.AddIdentity<User, IdentityRole<Guid>>()
-                .AddEntityFrameworkStores<ApplicationContext>();
-
-            // Auto Mapper Configurations
-            var mappingConfig = new MapperConfiguration(mc =>
-            {
-                mc.AddProfile(new AutoMapping());
-            });
-
-            IMapper mapper = mappingConfig.CreateMapper();
-            services.AddSingleton(mapper);
-
-            services.AddControllersWithViews().AddNewtonsoftJson();
-
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "My Api", Version = "v1" });
-            });
-
-            services.AddScoped(typeof(IRepository<>), typeof(BaseRepository<>));
-            services.AddScoped<IUserRepository, UserRepository>();
-            services.AddScoped<IUserService, UserService>();
-            services.AddScoped<IAnalysisRepository, AnalysisRepository>();
-            services.AddScoped<IMessageRepository, MessageRepository>();
-            services.AddScoped<ISectionRepository, SectionRepository>();
-            services.AddScoped<ITreatmentRepository, TreatmentRepository>();
-            services.AddScoped<ISportsmanNoteRepository, SportsmanNoteRepository>();
-            services.AddScoped<IAnalysisService, AnalysisService>();
-            services.AddScoped<IUsersUsersRepository, UsersUsersRepository>();
-
-            services.AddCors();
-
-
-            //Jwt
-
-
-            services.AddAuthentication(x =>
-            {
-                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-                x.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-            }
-            ).AddJwtBearer(x =>
-            {
-                x.RequireHttpsMetadata = false;
-                x.SaveToken = true;
-                x.TokenValidationParameters = new TokenValidationParameters()
-                {
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JWT:Secret"])),
-                    ValidateIssuer = true,
-                    ValidIssuer = Configuration["JWT:ValidIssuer"],
-                    ValidateAudience = true,
-                    ValidAudience = Configuration["JWT:ValidAudience"],
-                    ClockSkew = TimeSpan.Zero
-                };
-            });
+            CompositionRoot.InjectDependencies(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

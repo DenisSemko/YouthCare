@@ -3,9 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using YouthCareServer.Models;
-using YouthCareServer.Services.Abstract;
-using YouthCareServer.Repository.Abstract;
+using CIL.Models;
+using BLL.Services.Abstract;
+using DAL.Repository.Abstract;
 using Microsoft.AspNetCore.Http;
 
 namespace YouthCareServer.Controllers.API
@@ -14,17 +14,17 @@ namespace YouthCareServer.Controllers.API
     [ApiController]
     public class ObservationNoteController : ControllerBase
     {
-        private readonly IObservationNoteRepository observationNoteRepository;
+        private readonly IUnitOfWork unitOfWork;
 
-        public ObservationNoteController(IObservationNoteRepository observationNoteRepository)
+        public ObservationNoteController(IUnitOfWork unitOfWork)
         {
-            this.observationNoteRepository = observationNoteRepository;
+            this.unitOfWork = unitOfWork;
         }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ObservationNote>>> Get()
         {
-            return Ok(await observationNoteRepository.Get());
+            return Ok(await unitOfWork.ObservationNoteRepository.Get());
         }
 
         [HttpGet("{id:Guid}")]
@@ -32,7 +32,7 @@ namespace YouthCareServer.Controllers.API
         {
             try
             {
-                var result = await observationNoteRepository.GetById(id);
+                var result = await unitOfWork.ObservationNoteRepository.GetById(id);
 
                 if (result == null) return NotFound();
 
@@ -55,7 +55,7 @@ namespace YouthCareServer.Controllers.API
                     return BadRequest();
                 }
 
-                var result = await observationNoteRepository.Add(observationNote);
+                var result = await unitOfWork.ObservationNoteRepository.Add(observationNote);
                 return result;
 
             }
@@ -79,7 +79,7 @@ namespace YouthCareServer.Controllers.API
         {
             try
             {
-                var result = await observationNoteRepository.DeleteById(id);
+                var result = await unitOfWork.ObservationNoteRepository.DeleteById(id);
 
                 if (result == null) return NotFound();
 

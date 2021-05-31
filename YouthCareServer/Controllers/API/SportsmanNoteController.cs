@@ -3,9 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using YouthCareServer.Models;
-using YouthCareServer.Services.Abstract;
-using YouthCareServer.Repository.Abstract;
+using CIL.Models;
+using BLL.Services.Abstract;
+using DAL.Repository.Abstract;
 using Microsoft.AspNetCore.Http;
 
 namespace YouthCareServer.Controllers.API
@@ -14,17 +14,17 @@ namespace YouthCareServer.Controllers.API
     [ApiController]
     public class SportsmanNoteController : ControllerBase
     {
-        private readonly ISportsmanNoteRepository sportsmanNoteRepository;
+        private readonly IUnitOfWork unitOfWork;
 
-        public SportsmanNoteController(ISportsmanNoteRepository sportsmanNoteRepository)
+        public SportsmanNoteController(IUnitOfWork unitOfWork)
         {
-            this.sportsmanNoteRepository = sportsmanNoteRepository;
+            this.unitOfWork = unitOfWork;
         }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<SportsmanNote>>> Get()
         {
-            return Ok(await sportsmanNoteRepository.Get());
+            return Ok(await unitOfWork.SportsmanNoteRepository.Get());
         }
 
         [HttpGet("{id:Guid}")]
@@ -32,7 +32,7 @@ namespace YouthCareServer.Controllers.API
         {
             try
             {
-                var result = await sportsmanNoteRepository.GetById(id);
+                var result = await unitOfWork.SportsmanNoteRepository.GetById(id);
 
                 if (result == null) return NotFound();
 
@@ -55,7 +55,7 @@ namespace YouthCareServer.Controllers.API
                     return BadRequest();
                 }
 
-                var result = await sportsmanNoteRepository.Add(sportsmanNote);
+                var result = await unitOfWork.SportsmanNoteRepository.Add(sportsmanNote);
                 return result;
 
             }
@@ -79,7 +79,7 @@ namespace YouthCareServer.Controllers.API
         {
             try
             {
-                var result = await sportsmanNoteRepository.DeleteById(id);
+                var result = await unitOfWork.SportsmanNoteRepository.DeleteById(id);
 
                 if (result == null) return NotFound();
 

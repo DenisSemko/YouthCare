@@ -3,9 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using YouthCareServer.Models;
-using YouthCareServer.Services.Abstract;
-using YouthCareServer.Repository.Abstract;
+using CIL.Models;
+using BLL.Services.Abstract;
+using DAL.Repository.Abstract;
 using Microsoft.AspNetCore.Http;
 
 namespace YouthCareServer.Controllers.API
@@ -14,17 +14,17 @@ namespace YouthCareServer.Controllers.API
     [ApiController]
     public class SectionController : ControllerBase
     {
-        private readonly ISectionRepository sectionRepository;
+        private readonly IUnitOfWork unitOfWork;
 
-        public SectionController(ISectionRepository sectionRepository)
+        public SectionController(IUnitOfWork unitOfWork)
         {
-            this.sectionRepository = sectionRepository;
+            this.unitOfWork = unitOfWork;
         }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Section>>> Get()
         {
-            return Ok(await sectionRepository.Get());
+            return Ok(await unitOfWork.SectionRepository.Get());
         }
 
         [HttpPost]
@@ -37,7 +37,7 @@ namespace YouthCareServer.Controllers.API
                     return BadRequest();
                 }
 
-                var result = await sectionRepository.Add(section);
+                var result = await unitOfWork.SectionRepository.Add(section);
                 return result;
 
             }

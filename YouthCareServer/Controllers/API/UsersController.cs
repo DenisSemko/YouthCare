@@ -8,10 +8,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using YouthCareServer.DTOs;
-using YouthCareServer.Models;
-using YouthCareServer.Repository.Abstract;
+using CIL.DTOs;
+using CIL.Models;
+using DAL.Repository.Abstract;
 using RouteAttribute = Microsoft.AspNetCore.Mvc.RouteAttribute;
+using DAL;
 
 namespace YouthCareServer.Controllers.API
 {
@@ -19,13 +20,13 @@ namespace YouthCareServer.Controllers.API
     [ApiController]
     public class UsersController : ControllerBase
     {
-        private readonly IUserRepository userRepository;
+        private readonly IUnitOfWork unitOfWork;
         ApplicationContext myDbContext;
         private readonly IMapper mapper;
 
-        public UsersController(IUserRepository userRepository, ApplicationContext myDbContext, IMapper mapper)
+        public UsersController(IUnitOfWork unitOfWork, ApplicationContext myDbContext, IMapper mapper)
         {
-            this.userRepository = userRepository;
+            this.unitOfWork = unitOfWork;
             this.myDbContext = myDbContext;
             this.mapper = mapper;
         }
@@ -33,7 +34,7 @@ namespace YouthCareServer.Controllers.API
         [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> Get()
         {
-            return Ok(await userRepository.Get());
+            return Ok(await unitOfWork.UserRepository.Get());
         }
 
         [HttpGet("{id:Guid}")]
@@ -64,7 +65,7 @@ namespace YouthCareServer.Controllers.API
                     return BadRequest();
                 }
 
-                var result = await userRepository.Add(user);
+                var result = await unitOfWork.UserRepository.Add(user);
                 return result;
 
             }
@@ -80,9 +81,9 @@ namespace YouthCareServer.Controllers.API
         {
             try
             {
-                var user = await userRepository.GetUserByUsernameAsync(userDto.Username);
+                var user = await unitOfWork.UserRepository.GetUserByUsernameAsync(userDto.Username);
                 mapper.Map(userDto, user);
-                await userRepository.Update(user);
+                await unitOfWork.UserRepository.Update(user);
                 return user;
             }
             catch (Exception)
@@ -97,7 +98,7 @@ namespace YouthCareServer.Controllers.API
         {
             try
             {
-                var result = await userRepository.DeleteById(id);
+                var result = await unitOfWork.UserRepository.DeleteById(id);
 
                 if (result == null) return NotFound();
 

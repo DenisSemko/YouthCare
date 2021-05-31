@@ -5,8 +5,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using YouthCareServer.Models;
-using YouthCareServer.Repository.Abstract;
+using CIL.Models;
+using DAL.Repository.Abstract;
+using DAL;
 
 namespace YouthCareServer.Controllers.API
 {
@@ -14,12 +15,12 @@ namespace YouthCareServer.Controllers.API
     [ApiController]
     public class UserProfileController : ControllerBase
     {
-        private readonly IUserRepository userRepository;
+        private readonly IUnitOfWork unitOfWork;
         private readonly ApplicationContext applicationContext;
 
-        public UserProfileController(IUserRepository userRepository, ApplicationContext applicationContext)
+        public UserProfileController(IUnitOfWork unitOfWork, ApplicationContext applicationContext)
         {
-            this.userRepository = userRepository;
+            this.unitOfWork = unitOfWork;
             this.applicationContext = applicationContext;
         }
 
