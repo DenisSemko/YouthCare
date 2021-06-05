@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using CIL.Models;
 using DAL.Repository.Abstract;
 using DAL;
+using BLL.Services.Abstract;
 
 namespace YouthCareServer.Controllers.API
 {
@@ -15,19 +16,17 @@ namespace YouthCareServer.Controllers.API
     [ApiController]
     public class UsersUsersController : ControllerBase
     {
-        private readonly ApplicationContext myDbContext;
-        private readonly IUnitOfWork unitOfWork;
+        private readonly IUsersUsersService usersUsersService;
 
-        public UsersUsersController(ApplicationContext myDbContext, IUnitOfWork unitOfWork)
+        public UsersUsersController(IUsersUsersService usersUsersService)
         {
-            this.myDbContext = myDbContext;
-            this.unitOfWork = unitOfWork;
+            this.usersUsersService = usersUsersService;
         }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<UsersUsers>>> Get()
         {
-            return Ok(await unitOfWork.UsersUsersRepository.Get());
+            return Ok(await usersUsersService.Get());
         }
 
         [HttpGet("{id:Guid}/{type}")]
@@ -35,10 +34,10 @@ namespace YouthCareServer.Controllers.API
         {
             try
             {
-                var result = await myDbContext.Users.Where(o => o.BelongSection.Id == id).Where(o => o.UserType == type).Include(o => o.BelongSection).ToListAsync();
+                var result = await usersUsersService.GetBySectionUserType(id, type);
                 if (result == null) return NotFound();
 
-                return result;
+                return result.ToList();
             }
             catch (Exception)
             {
@@ -57,7 +56,7 @@ namespace YouthCareServer.Controllers.API
                     return BadRequest();
                 }
 
-                var result = await unitOfWork.UsersUsersRepository.Add(users);
+                var result = await usersUsersService.Add(users);
                 return result;
 
             }

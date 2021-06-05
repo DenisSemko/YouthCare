@@ -14,17 +14,17 @@ namespace YouthCareServer.Controllers.API
     [ApiController]
     public class SportsmanNoteController : ControllerBase
     {
-        private readonly IUnitOfWork unitOfWork;
+        private readonly ISportsmanNoteService sportsmanNoteService;
 
-        public SportsmanNoteController(IUnitOfWork unitOfWork)
+        public SportsmanNoteController(ISportsmanNoteService sportsmanNoteService)
         {
-            this.unitOfWork = unitOfWork;
+            this.sportsmanNoteService = sportsmanNoteService;
         }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<SportsmanNote>>> Get()
         {
-            return Ok(await unitOfWork.SportsmanNoteRepository.Get());
+            return Ok(await sportsmanNoteService.Get());
         }
 
         [HttpGet("{id:Guid}")]
@@ -32,7 +32,7 @@ namespace YouthCareServer.Controllers.API
         {
             try
             {
-                var result = await unitOfWork.SportsmanNoteRepository.GetById(id);
+                var result = await sportsmanNoteService.GetById(id);
 
                 if (result == null) return NotFound();
 
@@ -55,7 +55,7 @@ namespace YouthCareServer.Controllers.API
                     return BadRequest();
                 }
 
-                var result = await unitOfWork.SportsmanNoteRepository.Add(sportsmanNote);
+                var result = await sportsmanNoteService.Add(sportsmanNote);
                 return result;
 
             }
@@ -67,19 +67,19 @@ namespace YouthCareServer.Controllers.API
         }
 
 
-       /* [HttpPut]
+       [HttpPut]
         public async Task<ActionResult<SportsmanNote>> Update(SportsmanNote sportsmanNote)
         {
-            var result = await sportsmanNoteRepository.Update(sportsmanNote);
+            var result = await sportsmanNoteService.Update(sportsmanNote);
             return result;
-        }*/
+        }
 
         [HttpDelete("{id:Guid}")]
         public async Task<ActionResult<SportsmanNote>> DeleteById(Guid id)
         {
             try
             {
-                var result = await unitOfWork.SportsmanNoteRepository.DeleteById(id);
+                var result = await sportsmanNoteService.DeleteById(id);
 
                 if (result == null) return NotFound();
 

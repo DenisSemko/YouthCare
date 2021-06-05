@@ -30,7 +30,7 @@ namespace DIL
         public static void InjectDependencies(IServiceCollection services)
         {
             services.AddDbContext<ApplicationContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+               options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddIdentity<User, IdentityRole<Guid>>()
                 .AddEntityFrameworkStores<ApplicationContext>();
@@ -51,38 +51,14 @@ namespace DIL
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "My Api", Version = "v1" });
             });
 
-            services.AddScoped(typeof(IRepository<>), typeof(BaseRepository<>));
+            //services.AddScoped(typeof(IRepository<>), typeof(BaseRepository<>));
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IAnalysisRepository, AnalysisRepository>();
             services.AddScoped<IAnalysisService, AnalysisService>();
 
             services.AddCors();
 
-
-            //Jwt
-
-
-            services.AddAuthentication(x =>
-            {
-                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-                x.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-            }
-            ).AddJwtBearer(x =>
-            {
-                x.RequireHttpsMetadata = false;
-                x.SaveToken = true;
-                x.TokenValidationParameters = new TokenValidationParameters()
-                {
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JWT:Secret"])),
-                    ValidateIssuer = true,
-                    ValidIssuer = Configuration["JWT:ValidIssuer"],
-                    ValidateAudience = true,
-                    ValidAudience = Configuration["JWT:ValidAudience"],
-                    ClockSkew = TimeSpan.Zero
-                };
-            });
         }
     }
 }

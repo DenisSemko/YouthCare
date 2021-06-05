@@ -14,17 +14,17 @@ namespace YouthCareServer.Controllers.API
     [ApiController]
     public class ObservationNoteController : ControllerBase
     {
-        private readonly IUnitOfWork unitOfWork;
+        private readonly IObservationNoteService observationNoteService;
 
-        public ObservationNoteController(IUnitOfWork unitOfWork)
+        public ObservationNoteController(IObservationNoteService observationNoteService)
         {
-            this.unitOfWork = unitOfWork;
+            this.observationNoteService = observationNoteService;
         }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ObservationNote>>> Get()
         {
-            return Ok(await unitOfWork.ObservationNoteRepository.Get());
+            return Ok(await observationNoteService.Get());
         }
 
         [HttpGet("{id:Guid}")]
@@ -32,7 +32,7 @@ namespace YouthCareServer.Controllers.API
         {
             try
             {
-                var result = await unitOfWork.ObservationNoteRepository.GetById(id);
+                var result = await observationNoteService.GetById(id);
 
                 if (result == null) return NotFound();
 
@@ -55,7 +55,7 @@ namespace YouthCareServer.Controllers.API
                     return BadRequest();
                 }
 
-                var result = await unitOfWork.ObservationNoteRepository.Add(observationNote);
+                var result = await observationNoteService.Add(observationNote);
                 return result;
 
             }
@@ -67,19 +67,19 @@ namespace YouthCareServer.Controllers.API
         }
 
 
-        /*[HttpPut]
+        [HttpPut]
         public async Task<ActionResult<ObservationNote>> Update(ObservationNote observationNote)
         {
-            var result = await observationNoteRepository.Update(observationNote);
+            var result = await observationNoteService.Update(observationNote);
             return result;
-        }*/
+        }
 
         [HttpDelete("{id:Guid}")]
         public async Task<ActionResult<ObservationNote>> DeleteById(Guid id)
         {
             try
             {
-                var result = await unitOfWork.ObservationNoteRepository.DeleteById(id);
+                var result = await observationNoteService.DeleteById(id);
 
                 if (result == null) return NotFound();
 

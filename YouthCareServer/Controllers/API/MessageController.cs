@@ -14,17 +14,17 @@ namespace YouthCareServer.Controllers.API
     [ApiController]
     public class MessageController : ControllerBase
     {
-        private readonly IUnitOfWork unitOfWork;
+        private readonly IMessageService messageService;
 
-        public MessageController(IUnitOfWork unitOfWork)
+        public MessageController(IMessageService messageService)
         {
-            this.unitOfWork = unitOfWork;
+            this.messageService = messageService;
         }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Message>>> Get()
         {
-            return Ok(await unitOfWork.MessageRepository.Get());
+            return Ok(await messageService.Get());
         }
 
         [HttpGet("{id:Guid}")]
@@ -32,7 +32,7 @@ namespace YouthCareServer.Controllers.API
         {
             try
             {
-                var result = await unitOfWork.MessageRepository.GetById(id);
+                var result = await messageService.GetById(id);
 
                 if (result == null) return NotFound();
 
@@ -55,7 +55,7 @@ namespace YouthCareServer.Controllers.API
                     return BadRequest();
                 }
 
-                var result = await unitOfWork.MessageRepository.Add(message);
+                var result = await messageService.Add(message);
                 return result;
 
             }
@@ -67,19 +67,19 @@ namespace YouthCareServer.Controllers.API
         }
 
 
-        /*[HttpPut]
+        [HttpPut]
         public async Task<ActionResult<Message>> Update(Message message)
         {
-            var result = await messageRepository.Update(message);
+            var result = await messageService.Update(message);
             return result;
-        }*/
+        }
 
         [HttpDelete("{id:Guid}")]
         public async Task<ActionResult<Message>> DeleteById(Guid id)
         {
             try
             {
-                var result = await unitOfWork.MessageRepository.DeleteById(id);
+                var result = await messageService.DeleteById(id);
 
                 if (result == null) return NotFound();
 

@@ -42,7 +42,6 @@ namespace YouthCareServer.Controllers.API
         {
             try
             {
-                //var result = await userRepository.GetById(id);
                 var result = await myDbContext.Users.Where(o => o.Id == id).Include(o => o.BelongSection).FirstOrDefaultAsync();
                 if (result == null) return NotFound();
 

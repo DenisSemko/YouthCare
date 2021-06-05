@@ -12,18 +12,18 @@ namespace YouthCareServer.Controllers.API
     [ApiController]
     public class UserAuthController : ControllerBase
     {
-        private readonly IUserService _userService;
+        private readonly IUserService userService;
 
         public UserAuthController(IUserService userService)
         {
-            this._userService = userService;
+            this.userService = userService;
         }
 
         [HttpPost]
         [Route("registration")]
         public async Task<IActionResult> Register([FromBody] RegisterModel registerModel)
         {
-            var authResponse = await _userService.RegisterAsync(registerModel);
+            var authResponse = await userService.RegisterAsync(registerModel);
 
             if (!authResponse.Success)
             {
@@ -43,7 +43,7 @@ namespace YouthCareServer.Controllers.API
         [Route("login")]
         public async Task<IActionResult> Login([FromBody] LoginModel loginModel)
         {
-            var authResponse = await _userService.LoginAsync(loginModel);
+            var authResponse = await userService.LoginAsync(loginModel);
 
             if (!authResponse.Success)
             {

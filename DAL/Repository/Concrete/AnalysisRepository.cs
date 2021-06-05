@@ -12,7 +12,9 @@ namespace DAL.Repository.Concrete
 {
     public class AnalysisRepository : BaseRepository<Analysis>, IAnalysisRepository
     {
-        public AnalysisRepository(ApplicationContext myDbContext) : base(myDbContext) { }
+        public AnalysisRepository(ApplicationContext myDbContext) : base(myDbContext) 
+        {
+        }
 
         public new async Task<ActionResult<Analysis>> GetById(Guid id)
         {

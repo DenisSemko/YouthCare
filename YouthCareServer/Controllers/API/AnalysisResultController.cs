@@ -19,13 +19,15 @@ namespace YouthCareServer.Controllers.API
     public class AnalysisResultController : ControllerBase
     {
         private readonly IAnalysisService analysisService;
+        private readonly IAnalysisResultService analysisResultService;
         private readonly ApplicationContext myDbContext;
         private readonly IMapper mapper;
-        public AnalysisResultController(IAnalysisService analysisService, ApplicationContext myDbContext, IMapper mapper)
+        public AnalysisResultController(IAnalysisService analysisService, ApplicationContext myDbContext, IMapper mapper, IAnalysisResultService analysisResultService)
         {
             this.analysisService = analysisService;
             this.myDbContext = myDbContext;
             this.mapper = mapper;
+            this.analysisResultService = analysisResultService;
         }
 
         [HttpGet("{id:Guid}")]
@@ -33,11 +35,10 @@ namespace YouthCareServer.Controllers.API
         {
             try
             {
-                var result = await myDbContext.Analysis.Where(o => o.SportsmanUserId.Id == id).Include(o => o.SportsmanUserId).Include(o => o.DoctorUserId).ToListAsync();
-
+                var result = await analysisResultService.GetByUserId(id);
                 if (result == null) return NotFound();
 
-                return result;
+                return result.ToList();
             }
             catch (Exception)
             {

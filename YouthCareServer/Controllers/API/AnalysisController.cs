@@ -17,19 +17,17 @@ namespace YouthCareServer.Controllers.API
     [ApiController]
     public class AnalysisController : ControllerBase
     {
-        private readonly IUnitOfWork unitOfWork;
-        private readonly ApplicationContext myDbContext;
+        private readonly IAnalysService analysService;
 
-        public AnalysisController(IUnitOfWork unitOfWork, ApplicationContext myDbContext)
+        public AnalysisController(IAnalysService analysService)
         {
-            this.unitOfWork = unitOfWork;
-            this.myDbContext = myDbContext;
+            this.analysService = analysService;
         }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Analysis>>> Get()
         {
-            return Ok(await unitOfWork.AnalysisRepository.Get());
+            return Ok(await analysService.Get());
         }
 
         [HttpGet("{id:Guid}")]
@@ -37,7 +35,7 @@ namespace YouthCareServer.Controllers.API
         {
             try
             {
-                var result = await unitOfWork.AnalysisRepository.GetById(id);
+                var result = await analysService.GetById(id);
 
                 if (result == null) return NotFound();
 
@@ -61,24 +59,7 @@ namespace YouthCareServer.Controllers.API
                     return BadRequest();
                 }
 
-                var selectedSportsman = await myDbContext.Users.Where(c => c.Id == analysisDto.SportsmanUserId).FirstOrDefaultAsync();
-                var selectedDoctor = await myDbContext.Users.Where(c => c.Id == analysisDto.DoctorUserId).FirstOrDefaultAsync();
-                var analysis = new Analysis
-                {
-                    Id = analysisDto.Id,
-                    SportsmanUserId = selectedSportsman,
-                    DoctorUserId = selectedDoctor,
-                    Name = analysisDto.Name,
-                    Date = analysisDto.Date,
-                    Type = analysisDto.Type,
-                    Measure = analysisDto.Measure,
-                    Weight = analysisDto.Weight,
-                    Height = analysisDto.Height,
-                    Description = analysisDto.Description,
-                    Result = analysisDto.Result
-
-                };
-                var result = await unitOfWork.AnalysisRepository.Add(analysis);
+                var result = await analysService.Add(analysisDto);
                 return result;
 
             }
@@ -93,7 +74,7 @@ namespace YouthCareServer.Controllers.API
         {
             try
             {
-                var result = await unitOfWork.AnalysisRepository.DeleteById(id);
+                var result = await analysService.DeleteById(id);
 
                 if (result == null) return NotFound();
 

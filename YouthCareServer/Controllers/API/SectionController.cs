@@ -14,17 +14,17 @@ namespace YouthCareServer.Controllers.API
     [ApiController]
     public class SectionController : ControllerBase
     {
-        private readonly IUnitOfWork unitOfWork;
+        private readonly ISectionService sectionService;
 
-        public SectionController(IUnitOfWork unitOfWork)
+        public SectionController(ISectionService sectionService)
         {
-            this.unitOfWork = unitOfWork;
+            this.sectionService = sectionService;
         }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Section>>> Get()
         {
-            return Ok(await unitOfWork.SectionRepository.Get());
+            return Ok(await sectionService.Get());
         }
 
         [HttpPost]
@@ -37,7 +37,7 @@ namespace YouthCareServer.Controllers.API
                     return BadRequest();
                 }
 
-                var result = await unitOfWork.SectionRepository.Add(section);
+                var result = await sectionService.Add(section);
                 return result;
 
             }

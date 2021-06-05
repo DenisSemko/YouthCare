@@ -15,17 +15,17 @@ namespace YouthCareServer.Controllers.API
     [ApiController]
     public class TreatmentController : ControllerBase
     {
-        private readonly IUnitOfWork unitOfWork;
+        private readonly ITreatmentService treatmentService;
 
-        public TreatmentController(IUnitOfWork unitOfWork)
+        public TreatmentController(ITreatmentService treatmentService)
         {
-            this.unitOfWork = unitOfWork;
+            this.treatmentService = treatmentService;
         }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Treatment>>> Get()
         {
-            return Ok(await unitOfWork.TreatmentRepository.Get());
+            return Ok(await treatmentService.Get());
         }
 
         [HttpGet("{id:Guid}")]
@@ -33,7 +33,7 @@ namespace YouthCareServer.Controllers.API
         {
             try
             {
-                var result = await unitOfWork.TreatmentRepository.GetById(id);
+                var result = await treatmentService.GetById(id);
 
                 if (result == null) return NotFound();
 
@@ -56,7 +56,7 @@ namespace YouthCareServer.Controllers.API
                     return BadRequest();
                 }
 
-                var result = await unitOfWork.TreatmentRepository.Add(treatment);
+                var result = await treatmentService.Add(treatment);
                 return result;
 
             }
@@ -67,19 +67,19 @@ namespace YouthCareServer.Controllers.API
         }
 
 
-        /*[HttpPut]
+        [HttpPut]
         public async Task<ActionResult<Treatment>> Update(Treatment treatment)
         {
-            var result = await treatmentRepository.Update(treatment);
+            var result = await treatmentService.Update(treatment);
             return result;
-        }*/
+        }
 
         [HttpDelete("{id:Guid}")]
         public async Task<ActionResult<Treatment>> DeleteById(Guid id)
         {
             try
             {
-                var result = await unitOfWork.TreatmentRepository.DeleteById(id);
+                var result = await treatmentService.DeleteById(id);
 
                 if (result == null) return NotFound();
 

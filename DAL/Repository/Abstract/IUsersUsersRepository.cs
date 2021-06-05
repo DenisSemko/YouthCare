@@ -8,5 +8,6 @@ namespace DAL.Repository.Abstract
 {
     public interface IUsersUsersRepository : IRepository<UsersUsers>
     {
+        public Task<IEnumerable<User>> GetBySectionUserType(Guid id, string type)
     }
 }

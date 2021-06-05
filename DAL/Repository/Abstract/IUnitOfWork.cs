@@ -15,6 +15,7 @@ namespace DAL.Repository.Abstract
         ITreatmentRepository TreatmentRepository { get; }
         IUserRepository UserRepository { get; }
         IUsersUsersRepository UsersUsersRepository { get; }
+        IAnalysisResultRepository AnalysisResultRepository { get; }
         void Complete();
         bool HasChanges();
     }
