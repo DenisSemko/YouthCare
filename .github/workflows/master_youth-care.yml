@@ -52,5 +52,5 @@ jobs:
       with:
         app-name: 'youth-care'
         slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_a4954792f6ac4b2db534c26984daaff2 }}
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_c45cfad006a84f7b93ef6b7b33075216 }}
         package: .
