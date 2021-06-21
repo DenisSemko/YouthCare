@@ -5,7 +5,6 @@ using CIL.Models;
 using DAL;
 using DAL.Repository.Abstract;
 using DAL.Repository.Concrete;
-using DIL;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -78,8 +77,6 @@ namespace YouthCareServer
             services.AddScoped<IUsersUsersService, UsersUsersService>();
 
             services.AddCors();
-
-            //CompositionRoot.InjectDependencies(services);
 
             //Jwt
 

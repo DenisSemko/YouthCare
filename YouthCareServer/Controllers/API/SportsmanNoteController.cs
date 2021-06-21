@@ -7,6 +7,7 @@ using CIL.Models;
 using BLL.Services.Abstract;
 using DAL.Repository.Abstract;
 using Microsoft.AspNetCore.Http;
+using CIL.DTOs;
 
 namespace YouthCareServer.Controllers.API
 {
@@ -28,15 +29,15 @@ namespace YouthCareServer.Controllers.API
         }
 
         [HttpGet("{id:Guid}")]
-        public async Task<ActionResult<SportsmanNote>> GetById(Guid id)
+        public async Task<ActionResult<IEnumerable<SportsmanNote>>> GetByUserId(Guid id)
         {
             try
             {
-                var result = await sportsmanNoteService.GetById(id);
+                var result = await sportsmanNoteService.GetByUserId(id);
 
                 if (result == null) return NotFound();
 
-                return result;
+                return result.ToList();
             }
             catch (Exception)
             {
@@ -46,7 +47,7 @@ namespace YouthCareServer.Controllers.API
         }
 
         [HttpPost]
-        public async Task<ActionResult<SportsmanNote>> Add(SportsmanNote sportsmanNote)
+        public async Task<ActionResult<SportsmanNote>> Add(NoteDto sportsmanNote)
         {
             try
             {
@@ -56,6 +57,12 @@ namespace YouthCareServer.Controllers.API
                 }
 
                 var result = await sportsmanNoteService.Add(sportsmanNote);
+
+                if (string.IsNullOrWhiteSpace(sportsmanNote.Description) || string.IsNullOrWhiteSpace(sportsmanNote.Title))
+                {
+                    return BadRequest("You cannot create an empty note");
+                }
+
                 return result;
 
             }
@@ -68,7 +75,7 @@ namespace YouthCareServer.Controllers.API
 
 
        [HttpPut]
-        public async Task<ActionResult<SportsmanNote>> Update(SportsmanNote sportsmanNote)
+        public async Task<ActionResult<SportsmanNote>> Update(NoteDto sportsmanNote)
         {
             var result = await sportsmanNoteService.Update(sportsmanNote);
             return result;

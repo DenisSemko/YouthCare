@@ -1,18 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
 
-namespace CIL.Models
+namespace CIL.DTOs
 {
-    public class SportsmanNote
+    public class NoteDto
     {
-        [Required]
         public Guid Id { get; set; }
-
-        [Required]
-        public User SportsmanUserId { get; set; }
+        public Guid SportsmanUserId { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public DateTime Date { get; set; }
