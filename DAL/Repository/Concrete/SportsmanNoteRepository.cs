@@ -15,7 +15,7 @@ namespace DAL.Repository.Concrete
 
         public new async Task<IEnumerable<SportsmanNote>> Get()
         {
-            var result = await myDbContext.SportsmanNote.Include(o => o.SportsmanUserId).ToListAsync();
+            var result = await myDbContext.SportsmanNote.ToListAsync();
             return result;
         }
         public async Task<IEnumerable<SportsmanNote>> GetByUserId(Guid id)
