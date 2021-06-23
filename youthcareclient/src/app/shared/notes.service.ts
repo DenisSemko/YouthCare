@@ -25,11 +25,11 @@ export class NotesService {
       Title : this.formModel.value.Title,
       Description : this.formModel.value.Description
     };
-    return this.http.post(environment.baseURI + '/SportsmanNote', body)
+    return this.http.post(environment.baseURI + 'SportsmanNote', body)
   }
 
   getNotes(id: string) {
-    return this.http.get(environment.baseURI + '/SportsmanNote/'+ id)
+    return this.http.get(environment.baseURI + 'SportsmanNote/'+ id)
   }
 
   updateNote(body: any){
@@ -39,10 +39,10 @@ export class NotesService {
       Title : this.formModel.value.Title,
       Description : this.formModel.value.Description
     };
-    return this.http.put(environment.baseURI + '/SportsmanNote', body)
+    return this.http.put(environment.baseURI + 'SportsmanNote', body)
   }
 
   deleteNote(id: string) {
-    return this.http.delete(environment.baseURI + '/SportsmanNote/' + id)
+    return this.http.delete(environment.baseURI + 'SportsmanNote/' + id)
   }
 }

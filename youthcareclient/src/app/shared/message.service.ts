@@ -60,18 +60,18 @@ export class MessageService {
   getMessages(pageNumber: any, pageSize: any, container: any, username: any) {
     let params = getPaginationHeaders(pageNumber, pageSize, username);
     params = params.append('Container', container);
-    return getPaginatedResult<Message[]>(environment.baseURI + '/Message', params, this.http);
+    return getPaginatedResult<Message[]>(environment.baseURI + 'Message', params, this.http);
   }
 
   getMessageThread(currentUsername: string, username: string) {
-    return this.http.get<Message[]>(environment.baseURI + '/Message/' + currentUsername + '/' + username);
+    return this.http.get<Message[]>(environment.baseURI + 'Message/' + currentUsername + '/' + username);
   }
 
   sendMessage(currentUsername: string, username: string, content: string) {
-    return this.http.post<Message>(environment.baseURI + '/Message', {SenderUsername: currentUsername, RecepientUsername: username, content})
+    return this.http.post<Message>(environment.baseURI + 'Message', {SenderUsername: currentUsername, RecepientUsername: username, content})
   }
   deleteMessage(id: string) {
-    return this.http.delete(environment.baseURI + '/Message/' + id)
+    return this.http.delete(environment.baseURI + 'Message/' + id)
   }
 
   retrieveToken() : string {

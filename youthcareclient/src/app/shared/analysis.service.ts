@@ -47,11 +47,11 @@ export class AnalysisService {
       Description : this.formModel.value.Description,
       Result : this.formModel.value.Result
     };
-    return this.http.post(environment.baseURI + '/Analysis', body)
+    return this.http.post(environment.baseURI + 'Analysis', body)
   }
 
   getCurrentUserAnalysis(id: string) {
-    return this.http.get(environment.baseURI + '/AnalysisResult/' + id)
+    return this.http.get(environment.baseURI + 'AnalysisResult/' + id)
   }
 
   updateAnalysis(body: any) {
@@ -68,15 +68,15 @@ export class AnalysisService {
       Description : this.formModel.value.Description,
       Result : this.formModel.value.Result
     }
-    return this.http.put(environment.baseURI + '/AnalysisResult', body)
+    return this.http.put(environment.baseURI + 'AnalysisResult', body)
   }
 
   updateAnalysisAfterDetection(body: any) {
-    return this.http.put(environment.baseURI + '/AnalysisAfterDetection', body)
+    return this.http.put(environment.baseURI + 'AnalysisAfterDetection', body)
   }
 
   getAnalysis(id: string) {
-    return this.http.get(environment.baseURI + '/Analysis/' + id)
+    return this.http.get(environment.baseURI + 'Analysis/' + id)
   }
 
   createAnalysisDetection() {
@@ -86,22 +86,22 @@ export class AnalysisService {
       DoctorId: this.formModelDetection.value.DoctorId,
       AnalysisType : this.formModelDetection.value.AnalysisType
     }
-    return this.http.post(environment.baseURI + '/AnalysisDetection', body)
+    return this.http.post(environment.baseURI + 'AnalysisDetection', body)
   }
 
   getAnalysisDetection() {
-    return this.http.get(environment.baseURI + '/AnalysisDetection')
+    return this.http.get(environment.baseURI + 'AnalysisDetection')
   }
 
   deleteAnalysisDetection(id: string) {
-    return this.http.delete(environment.baseURI + '/AnalysisDetection/' + id);
+    return this.http.delete(environment.baseURI + 'AnalysisDetection/' + id);
   }
 
   getAfterAnalysisDetection(id: string) {
-    return this.http.get(environment.baseURI + '/AnalysisAfterDetection/' + id);
+    return this.http.get(environment.baseURI + 'AnalysisAfterDetection/' + id);
   }
   
   getBySectionUserType(id: string, type: string) {
-    return this.http.get(environment.baseURI + '/Analysis/' + id + '/' + type)
+    return this.http.get(environment.baseURI + 'Analysis/' + id + '/' + type)
   }
 }
