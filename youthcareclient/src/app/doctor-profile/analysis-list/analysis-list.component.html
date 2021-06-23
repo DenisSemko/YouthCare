@@ -1,7 +1,7 @@
 <br><br><br><br><br><br>
-<a [routerLink]="" class="btn btn-white btn-animate">click me</a>
+<a [routerLink]="" class="btn btn-white btn-animate">{{'analysis-list.click' | translate }}</a>
 <div class="mat-elevation-z1" *ngIf="userDetails">
-   <p>Sportsmen Analysis list of {{userDetails.belongSection.name}} Section</p>
+   <p>{{'analysis-list.title' | translate }} {{userDetails.belongSection.name}} {{'analysis-list.title_2' | translate }}</p>
     <table mat-table [dataSource]="dataSource" matSort>
   
       <ng-container matColumnDef="Id">

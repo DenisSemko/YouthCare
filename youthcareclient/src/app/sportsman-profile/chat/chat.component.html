@@ -1,19 +1,19 @@
 <div class="row mb-4">
     <div class="btn-group" name='container' *ngIf="userDetails">
         <button mat-raised-button type="submit" class="btn btn-danger btn-round" (click)="unreadMessage()" (click)="loadMessage(userDetails.userName)">
-            <mat-icon>markunread</mat-icon> Unread
+            <mat-icon>markunread</mat-icon> {{'chat.unread' | translate }}
         </button>
         <button mat-raised-button type="submit" class="btn btn-danger btn-round" (click)="inboxMessage()" (click)="loadMessage(userDetails.userName)">
-            <mat-icon>move_to_inbox</mat-icon> Inbox
+            <mat-icon>move_to_inbox</mat-icon> {{'chat.inbox' | translate }}
         </button>
         <button mat-raised-button type="submit" class="btn btn-danger btn-round" (click)="outboxMessage()" (click)="loadMessage(userDetails.userName)">
-            <mat-icon>work_outline</mat-icon> Outbox
+            <mat-icon>work_outline</mat-icon> {{'chat.outbox' | translate }}
         </button>
     </div>
 </div>
 
 <div class="row" *ngIf="messages?.length === 0">
-    <h3>No messages</h3>
+    <h3>{{'chat.no' | translate }}</h3>
 </div>
 
 <br>

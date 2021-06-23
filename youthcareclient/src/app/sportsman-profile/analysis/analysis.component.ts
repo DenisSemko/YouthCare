@@ -78,18 +78,20 @@ export class AnalysisComponent implements OnInit {
   {
     this.service.createAnalysis().subscribe( 
       result => {
-        this.service.updateAnalysis(result).subscribe(
-          res => {
-            console.log(res)
-          }, 
-          error  => {
-            console.log(error);
-          }
-        );
-        this.service.formModel.reset();
-        this.toastr.success('Analysis has been created successfully!');
-        this.toastr.success('Find out the file with the results on your drive D!');
-        window.location.reload();
+        setTimeout(() => {
+          this.service.updateAnalysis(result).subscribe(
+            res => {
+              console.log(res)
+            }, 
+            error  => {
+              console.log(error);
+            }
+          );
+          this.service.formModel.reset();
+          this.toastr.success('Analysis has been created successfully!');
+          this.toastr.success('Find out the file with the results on your drive D!');
+          window.location.reload();
+        }, 30000);
       }, 
       error  => {
         console.log(error);

@@ -81,5 +81,29 @@
     "doctor-sportsmen-list": {
         "title": "Список спортсменів",
         "title_2": "Секції"
+    },
+    "analysis-list": {
+        "click": "натисни!",
+        "title": "Аналізи спортсменів ",
+        "title_2": "секції"
+    },
+    "chat": {
+        "unread": "Непрочитані",
+        "inbox": "Вхідні",
+        "outbox": "Відправлені",
+        "no": "Немає повідомлень"
+    },
+    "dashboard": {
+        "add": "Додати замітку"
+    },
+    "doctor-card": {
+        "mail": "Напиши мені!"
+    }
+    ,
+    "note": {
+        "card-title": "Нова замітка",
+        "card-category": "Дата: ",
+        "title": "Заголовок: ",
+        "description": "Опис: "
     }
 }

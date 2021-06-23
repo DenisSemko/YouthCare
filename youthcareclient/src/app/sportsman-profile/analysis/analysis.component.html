@@ -8,32 +8,32 @@
                       <p class="card-category">{{ 'my-profile-all.category' | translate }} : {{ userDetails.userType }}</p>
                   </div>
                   <div class="card-body">
-                      <form autocomplete="off">
+                      <form autocomplete="off" [formGroup]="service.formModel" (ngSubmit)="onSubmit()">
                           <div class="row">
-                            <div class="col-md-5" style="display: none;">
+                            <div class="col-md-5" style="display: none;" *ngIf="uuidValue">
                               <mat-form-field class="example-full-width">
-                                  <input matInput placeholder="Id"  type="text" id="id">
+                                  <input matInput placeholder="Id" [(ngModel)]="uuidValue" formControlName="Id" type="text">
                                 </mat-form-field>
                             </div>
-                              <div class="col-md-5" style="display: none;">
-                                <mat-form-field class="example-full-width">
-                                    <input matInput placeholder="Name" type="text" id="name">
-                                  </mat-form-field>
-                              </div>
-                              <div class="col-md-4" style="display: none;">
-                                  <mat-form-field class="example-full-width">
-                                    <input matInput placeholder="Sportsman" type="text" id="sportsman">
-                                  </mat-form-field>
-                              </div>
+                            <div class="col-md-5" style="display: none;" *ngIf="analysisName">
+                              <mat-form-field class="example-full-width">
+                                  <input matInput placeholder="Name" [(ngModel)]="analysisName" formControlName="Name" type="text">
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-4" style="display: none;">
+                              <mat-form-field class="example-full-width">
+                                <input matInput placeholder="Sportsman" [(ngModel)]="userDetails.id" formControlName="SportsmanUserId" type="text">
+                              </mat-form-field>
+                          </div>
                               <div class="col-md-4" style="display: none;" *ngIf="currentDate">
                                 <mat-form-field class="example-full-width">
-                                  <input matInput placeholder="Date" name="date" [(ngModel)]="currentDate" type="text" id="date">
+                                  <input matInput placeholder="Date" name="date" [(ngModel)]="currentDate" type="text" formControlName="Date" id="date">
                                 </mat-form-field>
                             </div>
                               <div class="col-md-3" *ngIf="doctorsList">
                                   <mat-form-field class="example-full-width">
                                     <mat-label>{{ 'analysis.doctor' | translate }}</mat-label>
-                                    <mat-select name="doctor">
+                                    <mat-select name="doctor" formControlName="DoctorUserId">
                                       <mat-option *ngFor="let doctor of doctorsList" [value]="doctor.id" id="doctor">
                                         {{doctor.name}} {{doctor.surname}}
                                       </mat-option>
@@ -45,7 +45,7 @@
                               <div class="col-md-5">
                                 <mat-form-field class="example-full-width">
                                   <mat-label>{{ 'analysis.type' | translate }}</mat-label>
-                                  <mat-select [(ngModel)]="selectedValue" name="type">
+                                  <mat-select formControlName="Type" [(ngModel)]="selectedValue" name="type">
                                     <mat-option *ngFor="let type of types" [value]="type" id="type">
                                       {{type}}
                                     </mat-option>
@@ -54,7 +54,7 @@
                               </div>
                               <div class="col-md-4">
                                 <mat-form-field class="example-full-width">
-                                  <input matInput placeholder="Measure" type="number" id="measure">
+                                  <input matInput formControlName="Measure" placeholder="Measure" type="number" id="measure">
                                 </mat-form-field>
                               </div>
                           </div>
@@ -85,7 +85,7 @@
                             </div><br>
                             <button mat-raised-button type="submit" class="btn btn-danger btn-round" style="float:left;" (click)="generateUUID();">{{ 'analysis.measure' | translate }}</button>
                         </form>
-                          <button mat-raised-button type="submit" class="btn btn-danger btn-round" style="float:right;" (click)="handleClick($event)" (click)="deleteAnalysisDetection(userDetails.id)">{{ 'analysis.pass' | translate }}</button>
+                          <button mat-raised-button type="submit" class="btn btn-danger btn-round" style="float:right;" (click)="generateUUID();" (click)="handleClick($event)" (click)="deleteAnalysisDetection(userDetails.id)">{{ 'analysis.pass' | translate }}</button>
                           <div class="clearfix"></div>
                       </form>
                   </div>

@@ -3,8 +3,8 @@
       <div class="col-mat-6 offset-mat-3">
           <mat-card>
             <div class="card-header card-header-danger" style="margin-top: -46px; height: 80px;"><br>
-                <h4 class="card-title">New Note</h4>
-                <p class="card-category">Date: </p>
+                <h4 class="card-title">{{'note.card-title' | translate }}</h4>
+                <p class="card-category">{{'note.card-category' | translate }} </p>
             </div><br>
               <form class="example-form" autocomplete="off" [formGroup]="service.formModel" (ngSubmit)="onSubmit()">
                 <mat-card-content>
@@ -25,13 +25,13 @@
                   </div>
                     <div>
                     <mat-form-field class="example-full-width">
-                        <mat-label>Title</mat-label>
+                        <mat-label>{{'note.title' | translate }}</mat-label>
                         <input matInput name="title" formControlName="Title" required>
                     </mat-form-field>
                     </div>
                     <div>
                     <mat-form-field class="example-full-width">
-                        <mat-label>Description</mat-label>
+                        <mat-label>{{'note.description' | translate }}</mat-label>
                         <textarea matInput name="body" formControlName="Description" required></textarea>
                     </mat-form-field>
                     </div>
