@@ -5,9 +5,12 @@ using CIL.Models;
 using DAL;
 using DAL.Repository.Abstract;
 using DAL.Repository.Concrete;
+using DinkToPdf;
+using DinkToPdf.Contracts;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -20,6 +23,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -62,9 +66,11 @@ namespace YouthCareServer
             });
 
             //services.AddScoped(typeof(IRepository<>), typeof(BaseRepository<>));
+            services.AddSingleton<PresenceTracker>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IAnalysisRepository, AnalysisRepository>();
+            services.AddScoped<IMessageRepository, MessageRepository>();
             services.AddScoped<IAnalysisService, AnalysisService>();
             services.AddScoped<IMessageService, MessageService>();
             services.AddScoped<IObservationNoteService, ObservationNoteService>();
@@ -75,6 +81,9 @@ namespace YouthCareServer
             services.AddScoped<IAnalysisResultService, AnalysisResultService>();
             services.AddScoped<IAnalysService, AnalysService>();
             services.AddScoped<IUsersUsersService, UsersUsersService>();
+            services.AddScoped<IAnalysisDetectionRepository, AnalysisDetectionRepository>();
+            services.AddScoped<IAnalysisDetectionService, AnalysisDetectionService>();
+            services.AddScoped<IEmailMessageService, EmailService>();
 
             services.AddCors();
 
@@ -101,7 +110,38 @@ namespace YouthCareServer
                     ValidAudience = Configuration["JWT:ValidAudience"],
                     ClockSkew = TimeSpan.Zero
                 };
+
+                x.Events = new JwtBearerEvents
+                {
+                    OnMessageReceived = context =>
+                    {
+                        var accessToken = context.Request.Query["accessToken"];
+                        var path = context.HttpContext.Request.Path;
+
+                        if (!string.IsNullOrEmpty(accessToken) && path.StartsWithSegments("/hubs"))
+                        {
+                            context.Token = accessToken;
+                        }
+
+                        return Task.CompletedTask;
+                    }
+                };
             });
+
+            var context = new CustomAssemblyLoadContext();
+            context.LoadUnmanagedLibrary(Path.Combine(Directory.GetCurrentDirectory(), "libwkhtmltox.dll"));
+
+            services.AddSingleton(typeof(IConverter), new SynchronizedConverter(new PdfTools()));
+
+            var emailConfig = Configuration.GetSection("EmailConfiguration").Get<EmailConfiguration>();
+            services.AddSingleton(emailConfig);
+
+            //SignalR
+            services.AddSignalR(e => {
+                e.MaximumReceiveMessageSize = 102400000;
+            });
+
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -129,6 +169,7 @@ namespace YouthCareServer
             app.UseCors(builder =>
             builder.WithOrigins("http://localhost:4200")
             .AllowAnyHeader()
+            .AllowCredentials()
             .AllowAnyMethod());
 
             app.UseHttpsRedirection();
@@ -145,6 +186,8 @@ namespace YouthCareServer
             {
                 endpoints.MapControllers();
                 endpoints.MapFallbackToController("Index", "Fallback");
+                endpoints.MapHub<PresenceHub>("hubs/presence");
+                endpoints.MapHub<MessageHub>("hubs/messageHub");
             });
         }
     }

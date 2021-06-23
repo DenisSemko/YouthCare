@@ -1,0 +1,17 @@
+<div class="dashboard" >
+    <div class="note-card-container" *ngFor="let note of notesDetails">
+            <div class="note-card-content">
+                <h1 class="note-card-title">{{ note.title }}</h1>
+                <h3 class="note-card-date">{{ note.date | date : "MMMM d, y" }}</h3>
+                <div class="note-card-body">
+                   <p>
+                      {{ note.description }}
+                   </p>
+
+                   </div>
+                </div>
+                <button mat-stroked-button class="x-button" (click)="deleteNoteById(note.id)"></button>
+            </div>
+            <br>
+    <button mat-stroked-button class="add-note-button" routerLink="note/new" routerLinkActive="active">Add Note</button>
+</div><br><br><br>

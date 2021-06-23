@@ -9,5 +9,7 @@ namespace DAL.Repository.Abstract
 {
     public interface IAnalysisRepository : IRepository<Analysis>
     {
+        Task<Analysis> GetAnalysisByUserId(Guid id);
+        Task<IEnumerable<Analysis>> GetBySectionUserType(Guid id, string type);
     }
 }

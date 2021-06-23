@@ -15,6 +15,9 @@ namespace CIL.Models
         public User RecepientId { get; set; }
         public string RecepientUsername { get; set; }
         public string Content { get; set; }
-        public DateTime MessageSent { get; set; }
+        public DateTime? MessageRead { get; set; }
+        public DateTime MessageSent { get; set; } = DateTime.Now;
+        public bool SenderDeleted { get; set; }
+        public bool RecepientDeleted { get; set; }
     }
 }

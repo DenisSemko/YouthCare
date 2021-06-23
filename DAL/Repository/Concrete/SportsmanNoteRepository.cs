@@ -15,7 +15,7 @@ namespace DAL.Repository.Concrete
 
         public new async Task<IEnumerable<SportsmanNote>> Get()
         {
-            var result = await myDbContext.SportsmanNote.ToListAsync();
+            var result = await myDbContext.SportsmanNote.Include(o => o.SportsmanUserId).ToListAsync();
             return result;
         }
         public async Task<IEnumerable<SportsmanNote>> GetByUserId(Guid id)
@@ -23,6 +23,11 @@ namespace DAL.Repository.Concrete
             var result = await myDbContext.SportsmanNote.Where(o => o.SportsmanUserId.Id == id).Include(o => o.SportsmanUserId).ToListAsync();
             return result;
         }
-        
+        public new async Task<SportsmanNote> GetById(Guid id)
+        {
+            var result = await myDbContext.SportsmanNote.Where(o => o.Id == id).Include(o => o.SportsmanUserId).FirstOrDefaultAsync(); ;
+            return result;
+        }
+
     }
 }

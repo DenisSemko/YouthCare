@@ -9,5 +9,6 @@ namespace BLL.Services.Abstract
     public interface IAnalysisService
     {
         Task<Analysis> Update(Analysis analysis);
+        string GetPdfResult();
     }
 }

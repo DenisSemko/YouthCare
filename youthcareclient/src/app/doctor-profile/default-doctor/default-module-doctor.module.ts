@@ -32,6 +32,7 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
 import { InformationToolSportsmenlistComponent } from 'src/app/doctor-profile/information-tool-sportsmenlist/information-tool-sportsmenlist.component';
 import { BlockUIModule } from 'ng-block-ui';
+import { AnalysisListComponent } from 'src/app/doctor-profile/analysis-list/analysis-list.component';
 
 
 
@@ -41,7 +42,8 @@ import { BlockUIModule } from 'ng-block-ui';
     DashboardDoctorComponent,
     DoctorProfileComponent,
     SportsmenListComponent,
-    InformationToolSportsmenlistComponent
+    InformationToolSportsmenlistComponent,
+    AnalysisListComponent
   ],
   imports: [
     CommonModule,

@@ -8,7 +8,6 @@ namespace DAL.Repository.Abstract
     public interface IUnitOfWork
     {
         IAnalysisRepository AnalysisRepository { get; }
-        IMessageRepository MessageRepository { get; }
         IObservationNoteRepository ObservationNoteRepository { get; }
         ISectionRepository SectionRepository { get; }
         ISportsmanNoteRepository SportsmanNoteRepository { get; }
@@ -16,6 +15,7 @@ namespace DAL.Repository.Abstract
         IUserRepository UserRepository { get; }
         IUsersUsersRepository UsersUsersRepository { get; }
         IAnalysisResultRepository AnalysisResultRepository { get; }
+        IAnalysisDetectionRepository AnalysisDetectionRepository { get; }
         void Complete();
         bool HasChanges();
     }

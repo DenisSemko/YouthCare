@@ -35,7 +35,9 @@ namespace YouthCareServer.Controllers.API
 
             return Ok(new AuthSuccessResponse
             {
-                AccessToken = authResponse.AccessToken
+                AccessToken = authResponse.AccessToken,
+                Username = authResponse.Username,
+                UserType = authResponse.UserType
             });
         }
 
@@ -55,7 +57,9 @@ namespace YouthCareServer.Controllers.API
 
             return Ok(new AuthSuccessResponse
             {
-                AccessToken = authResponse.AccessToken
+                AccessToken = authResponse.AccessToken,
+                Username = authResponse.Username,
+                UserType = authResponse.UserType
             });
         }
 

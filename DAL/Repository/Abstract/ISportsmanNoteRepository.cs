@@ -11,5 +11,6 @@ namespace DAL.Repository.Abstract
     {
         public new Task<IEnumerable<SportsmanNote>> Get();
         public Task<IEnumerable<SportsmanNote>> GetByUserId(Guid id);
+        public new Task<SportsmanNote> GetById(Guid id);
     }
 }

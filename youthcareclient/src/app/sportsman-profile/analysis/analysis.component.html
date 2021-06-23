@@ -1,130 +1,210 @@
 <div class="main-content">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-8" style="position: relative;">
-                <div class="card" *ngIf="userDetails">
-                    <div class="card-header card-header-danger">
-                        <h4 class="card-title" translate>sidebar-all.analysis</h4>
-                        <p class="card-category">{{ 'my-profile-all.category' | translate }} : {{ userDetails.userType }}</p>
-                    </div>
-                    <div class="card-body">
-                        <form autocomplete="off" [formGroup]="service.formModel" (ngSubmit)="onSubmit()">
+  <div class="container-fluid">
+      <div class="row">
+          <div class="col-md-8 first" style="position: relative;">
+              <div class="card" *ngIf="userDetails">
+                  <div class="card-header card-header-danger">
+                      <h4 class="card-title" translate>sidebar-all.analysis</h4>
+                      <p class="card-category">{{ 'my-profile-all.category' | translate }} : {{ userDetails.userType }}</p>
+                  </div>
+                  <div class="card-body">
+                      <form autocomplete="off">
+                          <div class="row">
+                            <div class="col-md-5" style="display: none;">
+                              <mat-form-field class="example-full-width">
+                                  <input matInput placeholder="Id"  type="text" id="id">
+                                </mat-form-field>
+                            </div>
+                              <div class="col-md-5" style="display: none;">
+                                <mat-form-field class="example-full-width">
+                                    <input matInput placeholder="Name" type="text" id="name">
+                                  </mat-form-field>
+                              </div>
+                              <div class="col-md-4" style="display: none;">
+                                  <mat-form-field class="example-full-width">
+                                    <input matInput placeholder="Sportsman" type="text" id="sportsman">
+                                  </mat-form-field>
+                              </div>
+                              <div class="col-md-4" style="display: none;" *ngIf="currentDate">
+                                <mat-form-field class="example-full-width">
+                                  <input matInput placeholder="Date" name="date" [(ngModel)]="currentDate" type="text" id="date">
+                                </mat-form-field>
+                            </div>
+                              <div class="col-md-3" *ngIf="doctorsList">
+                                  <mat-form-field class="example-full-width">
+                                    <mat-label>{{ 'analysis.doctor' | translate }}</mat-label>
+                                    <mat-select name="doctor">
+                                      <mat-option *ngFor="let doctor of doctorsList" [value]="doctor.id" id="doctor">
+                                        {{doctor.name}} {{doctor.surname}}
+                                      </mat-option>
+                                    </mat-select>
+                                  </mat-form-field>
+                              </div>
+                          </div>
+                          <div class="row">
+                              <div class="col-md-5">
+                                <mat-form-field class="example-full-width">
+                                  <mat-label>{{ 'analysis.type' | translate }}</mat-label>
+                                  <mat-select [(ngModel)]="selectedValue" name="type">
+                                    <mat-option *ngFor="let type of types" [value]="type" id="type">
+                                      {{type}}
+                                    </mat-option>
+                                  </mat-select>
+                                </mat-form-field>
+                              </div>
+                              <div class="col-md-4">
+                                <mat-form-field class="example-full-width">
+                                  <input matInput placeholder="Measure" type="number" id="measure">
+                                </mat-form-field>
+                              </div>
+                          </div>
+                          <form autocomplete="off" [formGroup]="service.formModelDetection" (ngSubmit)="onSubmitDetection()">
                             <div class="row">
                               <div class="col-md-5" style="display: none;" *ngIf="uuidValue">
                                 <mat-form-field class="example-full-width">
                                     <input matInput placeholder="Id" [(ngModel)]="uuidValue" formControlName="Id" type="text">
                                   </mat-form-field>
                               </div>
-                                <div class="col-md-5" style="display: none;" *ngIf="analysisName">
-                                  <mat-form-field class="example-full-width">
-                                      <input matInput placeholder="Name" [(ngModel)]="analysisName" formControlName="Name" type="text">
-                                    </mat-form-field>
-                                </div>
                                 <div class="col-md-4" style="display: none;">
                                     <mat-form-field class="example-full-width">
-                                      <input matInput placeholder="Sportsman" [(ngModel)]="userDetails.id" formControlName="SportsmanUserId" type="text">
+                                      <input matInput placeholder="Sportsman" [(ngModel)]="userDetails.id" formControlName="SportsmanId" type="text">
                                     </mat-form-field>
                                 </div>
-                                <div class="col-md-4" style="display: none;" *ngIf="currentDate">
-                                  <mat-form-field class="example-full-width">
-                                    <input matInput placeholder="Date" [(ngModel)]="currentDate" formControlName="Date" type="text">
+                                <div class="col-md-4" style="display: none;" *ngIf="doctorsList">
+                                  <mat-form-field class="example-full-width" *ngFor="let doctor of doctorsList">
+                                    <input matInput placeholder="Doctor" [(ngModel)]="doctor.id" formControlName="DoctorId" type="text">
                                   </mat-form-field>
                               </div>
-                                <div class="col-md-3" *ngIf="doctorsList">
-                                    <mat-form-field class="example-full-width">
-                                      <mat-label>{{ 'analysis.doctor' | translate }}</mat-label>
-                                      <mat-select formControlName="DoctorUserId">
-                                        <mat-option *ngFor="let doctor of doctorsList" [value]="doctor.id">
-                                          {{doctor.name}} {{doctor.surname}}
-                                        </mat-option>
-                                      </mat-select>
-                                    </mat-form-field>
-                                </div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-5">
+                            <div class="row" style="display: none;">
+                                <div class="col-md-5" *ngIf="selectedValue">
                                   <mat-form-field class="example-full-width">
-                                    <mat-label>{{ 'analysis.type' | translate }}</mat-label>
-                                    <mat-select formControlName="Type" >
-                                      <mat-option *ngFor="let type of types" [value]="type">
-                                        {{type}}
-                                      </mat-option>
-                                    </mat-select>
+                                    <input matInput placeholder="Temperature" [(ngModel)]="selectedValue" formControlName="AnalysisType" type="text">
                                   </mat-form-field>
                                 </div>
-                                <div class="col-md-4">
-                                  <mat-form-field class="example-full-width">
-                                    <input matInput placeholder="Measure" formControlName="Measure" type="number">
-                                  </mat-form-field>
-                                </div>
-                            </div>
-                            <div class="row">
-                              <div class="col-md-4">
-                                <p>{{ 'analysis.formula' | translate }}</p>
-                                <mat-form-field class="example-full-width">
-                                  <input matInput placeholder="Weight (kg)" formControlName="Weight" type="number">
-                                </mat-form-field>
-                              </div>
-                              <div class="col-md-4">
-                                <p>{{ 'analysis.formula' | translate }}</p>
-                                <mat-form-field class="example-full-width">
-                                  <input matInput placeholder="Height (BMR - cm | BMI - m)" formControlName="Height" type="number">
-                                </mat-form-field>
-                              </div>
-                            </div>
-                            <button mat-raised-button type="submit" class="btn btn-danger btn-round" style="float:left;">{{ 'analysis.measure' | translate }}</button>
-                            <button mat-raised-button type="submit" class="btn btn-danger btn-round" style="float:right;" (click)="generateUUID();">{{ 'analysis.pass' | translate }}</button>
-                            <div class="clearfix"></div>
+                            </div><br>
+                            <button mat-raised-button type="submit" class="btn btn-danger btn-round" style="float:left;" (click)="generateUUID();">{{ 'analysis.measure' | translate }}</button>
                         </form>
-                    </div>
+                          <button mat-raised-button type="submit" class="btn btn-danger btn-round" style="float:right;" (click)="handleClick($event)" (click)="deleteAnalysisDetection(userDetails.id)">{{ 'analysis.pass' | translate }}</button>
+                          <div class="clearfix"></div>
+                      </form>
+                  </div>
+              </div>
+          </div>
+          <div class="col-md-8 second" style="margin-left: 10px;">
+            <div class="card" *ngIf="userDetails">
+                <div class="card-header card-header-blue">
+                    <h4 class="card-title" translate>sidebar-all.analysis</h4>
+                    <p class="card-category">{{ 'my-profile-all.category' | translate }} : {{ userDetails.userType }}</p>
+                </div>
+                <div class="card-body">
+                    <form autocomplete="off" [formGroup]="service.formModel" (ngSubmit)="onSubmit()">
+                        <div class="row">
+                          <div class="col-md-5" style="display: none;" *ngIf="uuidValue">
+                            <mat-form-field class="example-full-width">
+                                <input matInput placeholder="Id" [(ngModel)]="uuidValue" formControlName="Id" type="text">
+                              </mat-form-field>
+                          </div>
+                            <div class="col-md-5" style="display: none;" *ngIf="analysisName">
+                              <mat-form-field class="example-full-width">
+                                  <input matInput placeholder="Name" [(ngModel)]="analysisName" formControlName="Name" type="text">
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-4" style="display: none;">
+                                <mat-form-field class="example-full-width">
+                                  <input matInput placeholder="Sportsman" [(ngModel)]="userDetails.id" formControlName="SportsmanUserId" type="text">
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-4" style="display: none;" *ngIf="currentDate">
+                              <mat-form-field class="example-full-width">
+                                <input matInput placeholder="Date" [(ngModel)]="currentDate" formControlName="Date" type="text">
+                              </mat-form-field>
+                          </div>
+                            <div class="col-md-3" *ngIf="doctorsList">
+                                <mat-form-field class="example-full-width">
+                                  <mat-label>{{ 'analysis.doctor' | translate }}</mat-label>
+                                  <mat-select formControlName="DoctorUserId">
+                                    <mat-option *ngFor="let doctor of doctorsList" [value]="doctor.id">
+                                      {{doctor.name}} {{doctor.surname}}
+                                    </mat-option>
+                                  </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-5">
+                              <mat-form-field class="example-full-width">
+                                <mat-label>{{ 'analysis.type' | translate }}</mat-label>
+                                <mat-select formControlName="Type" [(ngModel)]="selectedValue">
+                                  <mat-option *ngFor="let type of otherTypes" [value]="type">
+                                    {{type}}
+                                  </mat-option>
+                                </mat-select>
+                              </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-4">
+                            <p>{{ 'analysis.formula' | translate }}</p>
+                            <mat-form-field class="example-full-width">
+                              <input matInput placeholder="Weight (kg)" formControlName="Weight" type="number">
+                            </mat-form-field>
+                          </div>
+                          <div class="col-md-4">
+                            <p>{{ 'analysis.formula' | translate }}</p>
+                            <mat-form-field class="example-full-width">
+                              <input matInput placeholder="Height (BMR - cm | BMI - m)" formControlName="Height" type="number">
+                            </mat-form-field>
+                          </div>
+                        </div>
+                        <button mat-raised-button type="submit" class="btn btn-blue btn-round" style="float:right;" (click)="generateUUID();" (click)="handleOtherClick($event)" >{{ 'analysis.pass' | translate }}</button>
+                        <div class="clearfix"></div>
+                    </form>
                 </div>
             </div>
         </div>
-        <!--<button mat-mini-fab color="warn" (click)="openPDF()" style="float:right;"><mat-icon>refresh</mat-icon></button>-->
-        <div class="mat-elevation-z1" style="position: relative;">
-          <table mat-table [dataSource]="dataSource" matSort id="data">
-        
-            <ng-container matColumnDef="Id">
-              <th mat-header-cell *matHeaderCellDef  mat-sort-header> Id</th>
-              <td mat-cell *matCellDef="let element" class="left-text"> {{element.id }} </td>
-            </ng-container>
-        
-            <ng-container matColumnDef="Name">
-              <th mat-header-cell *matHeaderCellDef  mat-sort-header> Name </th>
-              <td mat-cell *matCellDef="let element" class="left-text"> {{element.name}} </td>
-            </ng-container>
-        
-            <ng-container matColumnDef="Date">
-              <th mat-header-cell *matHeaderCellDef  mat-sort-header> Date </th>
-              <td mat-cell *matCellDef="let element" class="left-text"> {{element.date | date: 'longDate'}} </td>
-            </ng-container>
+      </div>
+      <div class="mat-elevation-z1" style="position: relative;">
+        <table mat-table [dataSource]="dataSource" matSort id="data">
       
-            <ng-container matColumnDef="Type">
-              <th mat-header-cell *matHeaderCellDef  mat-sort-header> Type </th>
-              <td mat-cell *matCellDef="let element" class="left-text"> {{element.type}} </td>
-            </ng-container>
+          <ng-container matColumnDef="Id">
+            <th mat-header-cell *matHeaderCellDef  mat-sort-header> Id</th>
+            <td mat-cell *matCellDef="let element" class="left-text"> {{element.id }} </td>
+          </ng-container>
       
-            <ng-container matColumnDef="Measure">
-              <th mat-header-cell *matHeaderCellDef  mat-sort-header> Measure </th>
-              <td mat-cell *matCellDef="let element" class="left-text"> {{element.measure}} </td>
-            </ng-container>
+          <ng-container matColumnDef="Name">
+            <th mat-header-cell *matHeaderCellDef  mat-sort-header> Name </th>
+            <td mat-cell *matCellDef="let element" class="left-text"> {{element.name}} </td>
+          </ng-container>
       
-            <ng-container matColumnDef="Description">
-              <th mat-header-cell *matHeaderCellDef  mat-sort-header> Description </th>
-              <td mat-cell *matCellDef="let element" class="left-text"> {{element.description}} </td>
-            </ng-container>
+          <ng-container matColumnDef="Date">
+            <th mat-header-cell *matHeaderCellDef  mat-sort-header> Date </th>
+            <td mat-cell *matCellDef="let element" class="left-text"> {{element.date | date: 'longDate'}} </td>
+          </ng-container>
+    
+          <ng-container matColumnDef="Type">
+            <th mat-header-cell *matHeaderCellDef  mat-sort-header> Type </th>
+            <td mat-cell *matCellDef="let element" class="left-text"> {{element.type}} </td>
+          </ng-container>
+    
+          <ng-container matColumnDef="Measure">
+            <th mat-header-cell *matHeaderCellDef  mat-sort-header> Measure </th>
+            <td mat-cell *matCellDef="let element" class="left-text"> {{element.measure}} </td>
+          </ng-container>
+    
+          <ng-container matColumnDef="Description">
+            <th mat-header-cell *matHeaderCellDef  mat-sort-header> Description </th>
+            <td mat-cell *matCellDef="let element" class="left-text"> {{element.description}} </td>
+          </ng-container>
+    
+          <ng-container matColumnDef="Result">
+            <th mat-header-cell *matHeaderCellDef  mat-sort-header> Result </th>
+            <td mat-cell *matCellDef="let element" class="left-text"> {{element.result}} </td>
+          </ng-container>
+    
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
       
-            <ng-container matColumnDef="Result">
-              <th mat-header-cell *matHeaderCellDef  mat-sort-header> Result </th>
-              <td mat-cell *matCellDef="let element" class="left-text"> {{element.result}} </td>
-            </ng-container>
-      
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-          </table>
-        
-          <mat-paginator [pageSizeOptions]="[2]"></mat-paginator>
-        </div>
-    </div>
+        <mat-paginator [pageSizeOptions]="[2]"></mat-paginator>
+      </div>
+  </div>
 </div>
-  

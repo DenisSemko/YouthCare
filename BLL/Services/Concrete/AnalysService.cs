@@ -33,6 +33,12 @@ namespace BLL.Services.Concrete
             return result;
         }
 
+        public async Task<IEnumerable<Analysis>> GetBySectionUserType(Guid id, string type)
+        {
+            var result = await unitOfWork.AnalysisRepository.GetBySectionUserType(id, type);
+            return result;
+        }
+
         public async Task<Analysis> Add(Analysis analysis)
         {
             var result = await unitOfWork.AnalysisRepository.Add(analysis);

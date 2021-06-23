@@ -31,6 +31,14 @@ import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
 import { InformationToolAnalysisComponent } from 'src/app/sportsman-profile/information-tool-analysis/information-tool-analysis.component';
+import { ChatComponent } from 'src/app/sportsman-profile/chat/chat.component';
+import { DoctorCardComponent } from 'src/app/sportsman-profile/doctor-card/doctor-card.component';
+import { DoctorListComponent } from 'src/app/sportsman-profile/doctor-list/doctor-list.component';
+import { NotesBodyComponent } from 'src/app/sportsman-profile/notes-body/notes-body.component';
+import { SportsmanChatComponent } from 'src/app/sportsman-profile/sportsman-chat/sportsman-chat.component';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+
+
  
 @NgModule({
   declarations: [
@@ -38,7 +46,12 @@ import { InformationToolAnalysisComponent } from 'src/app/sportsman-profile/info
     DashboardSportsmanComponent,
     SportsmanProfileComponent,
     AnalysisComponent,
-    InformationToolAnalysisComponent
+    InformationToolAnalysisComponent,
+    ChatComponent,
+    DoctorCardComponent,
+    DoctorListComponent,
+    NotesBodyComponent,
+    SportsmanChatComponent
   ],
   imports: [
     CommonModule,
@@ -64,6 +77,7 @@ import { InformationToolAnalysisComponent } from 'src/app/sportsman-profile/info
     ReactiveFormsModule,
     NgxEchartsModule,
     FormsModule,
+    Ng2SearchPipeModule,
     MatTableModule,
     HttpClientModule,
     TranslateModule.forRoot({

@@ -1,0 +1,43 @@
+<br><br><br><br><br><br>
+<a [routerLink]="" class="btn btn-white btn-animate">click me</a>
+<div class="mat-elevation-z1" *ngIf="userDetails">
+   <p>Sportsmen Analysis list of {{userDetails.belongSection.name}} Section</p>
+    <table mat-table [dataSource]="dataSource" matSort>
+  
+      <ng-container matColumnDef="Id">
+        <th mat-header-cell *matHeaderCellDef  mat-sort-header> Id</th>
+        <td mat-cell *matCellDef="let element" class="left-text"> {{element.id }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Date">
+        <th mat-header-cell *matHeaderCellDef  mat-sort-header> Date </th>
+        <td mat-cell *matCellDef="let element" class="left-text"> {{element.date | date: 'longDate'}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Type">
+        <th mat-header-cell *matHeaderCellDef  mat-sort-header> Type </th>
+        <td mat-cell *matCellDef="let element" class="left-text"> {{element.type}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Measure">
+        <th mat-header-cell *matHeaderCellDef  mat-sort-header> Measure </th>
+        <td mat-cell *matCellDef="let element" class="left-text"> {{element.measure}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Description">
+        <th mat-header-cell *matHeaderCellDef  mat-sort-header> Description </th>
+        <td mat-cell *matCellDef="let element" class="left-text"> {{element.description}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Result">
+        <th mat-header-cell *matHeaderCellDef  mat-sort-header> Result </th>
+        <td mat-cell *matCellDef="let element" class="left-text">{{element.result}} </td>
+      </ng-container>
+
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  
+    <mat-paginator [pageSizeOptions]="[15]"></mat-paginator>
+    </div><br>

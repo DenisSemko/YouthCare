@@ -1,0 +1,53 @@
+<div class="container" fxLayout="row" fxLayoutAlign="center center">
+    <div class="row">
+      <div class="col-mat-6 offset-mat-3">
+          <mat-card>
+            <div class="card-header card-header-danger" style="margin-top: -46px; height: 80px;"><br>
+                <h4 class="card-title">New Note</h4>
+                <p class="card-category">Date: </p>
+            </div><br>
+              <form class="example-form" autocomplete="off" [formGroup]="service.formModel" (ngSubmit)="onSubmit()">
+                <mat-card-content>
+                    <div class="col-md-5" style="display: none;" *ngIf="uuidValue">
+                        <mat-form-field class="example-full-width">
+                            <input matInput placeholder="Id" [(ngModel)]="uuidValue" formControlName="Id" type="text">
+                          </mat-form-field>
+                    </div>
+                    <div class="col-md-5" style="display: none;" *ngIf="userDetails">
+                        <mat-form-field class="example-full-width">
+                            <input matInput placeholder="SportsmanUserId" [(ngModel)]="userDetails.id" formControlName="SportsmanUserId" type="text">
+                          </mat-form-field>
+                    </div>
+                    <div class="col-md-5" style="display: none;" *ngIf="currentDate">
+                      <mat-form-field class="example-full-width">
+                          <input matInput placeholder="Date" [(ngModel)]="currentDate" formControlName="Date" type="text">
+                        </mat-form-field>
+                  </div>
+                    <div>
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Title</mat-label>
+                        <input matInput name="title" formControlName="Title" required>
+                    </mat-form-field>
+                    </div>
+                    <div>
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Description</mat-label>
+                        <textarea matInput name="body" formControlName="Description" required></textarea>
+                    </mat-form-field>
+                    </div>
+                </mat-card-content>
+                <div class="buttons">
+                    <button mat-mini-fab color="warn" (click)="cancel();">
+                        <mat-icon>cancel</mat-icon>
+                      </button>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <button mat-mini-fab color="primary" (click)="generateUUID();">
+                        <mat-icon>plus_one</mat-icon>
+                      </button>
+                </div>
+            </form>
+          </mat-card>
+        </div>
+      </div>  
+  </div>
+

@@ -7,6 +7,8 @@ using CIL.Models;
 using BLL.Services.Abstract;
 using DAL.Repository.Abstract;
 using Microsoft.AspNetCore.Http;
+using CIL.DTOs;
+using AutoMapper;
 
 namespace YouthCareServer.Controllers.API
 {
@@ -15,16 +17,29 @@ namespace YouthCareServer.Controllers.API
     public class MessageController : ControllerBase
     {
         private readonly IMessageService messageService;
+        private readonly IMessageRepository messageRepository;
+        private readonly IUserRepository userRepository;
+        private readonly IMapper mapper;
 
-        public MessageController(IMessageService messageService)
+        public MessageController(IMessageService messageService, IMessageRepository messageRepository, IUserRepository userRepository, IMapper mapper)
         {
             this.messageService = messageService;
+            this.messageRepository = messageRepository;
+            this.userRepository = userRepository;
+            this.mapper = mapper;
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Message>>> Get()
+        public async Task<ActionResult<IEnumerable<MessageDto>>> GetMessagesForUser([FromQuery]
+            MessageParams messageParams)
         {
-            return Ok(await messageService.Get());
+
+            var messages = await messageRepository.GetMessagesForUser(messageParams);
+
+            Response.AddPaginationHeader(messages.CurrentPage, messages.PageSize,
+                messages.TotalCount, messages.TotalPages, messages.Username);
+
+            return messages;
         }
 
         [HttpGet("{id:Guid}")]
@@ -45,24 +60,51 @@ namespace YouthCareServer.Controllers.API
             }
         }
 
+        [HttpGet("{currentUsername}/{username}")]
+        public async Task<ActionResult<IEnumerable<MessageDto>>> GetMessageThread(string currentUsername, string username)
+        {
+            return Ok(await messageRepository.GetMessageThread(currentUsername, username));
+        }
+
         [HttpPost]
-        public async Task<ActionResult<Message>> Add(Message message)
+        public async Task<ActionResult<MessageDto>> Add(CreateMessageDto createMessageDto)
         {
             try
             {
-                if (message == null)
+                var username = createMessageDto.SenderUsername;
+                if (username == createMessageDto.RecepientUsername.ToLower())
                 {
-                    return BadRequest();
+                    return BadRequest("You cannot send messages to yourself!");
                 }
 
-                var result = await messageService.Add(message);
-                return result;
+                var sender = await userRepository.GetUserByUsernameAsync(username);
+                var recepient = await userRepository.GetUserByUsernameAsync(createMessageDto.RecepientUsername);
+
+                if (recepient == null) return NotFound();
+
+                var message = new Message
+                {
+                    SenderId = sender,
+                    RecepientId = recepient,
+                    SenderUsername = sender.UserName,
+                    RecepientUsername = recepient.UserName,
+                    Content = createMessageDto.Content.Trim()
+                };
+
+                messageRepository.AddMessage(message);
+
+                if (string.IsNullOrWhiteSpace(message.Content))
+                {
+                    return BadRequest("You cannot send an empty message");
+                }
+
+                messageRepository.Save();
+                return Ok(mapper.Map<MessageDto>(message));
 
             }
             catch (Exception)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                    "Error creating the new message record");
+                throw;
             }
         }
 

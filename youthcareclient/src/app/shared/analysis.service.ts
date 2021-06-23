@@ -26,6 +26,13 @@ export class AnalysisService {
 
   })
 
+  public formModelDetection = this.fb.group({
+    Id: [''],
+    SportsmanId : [''],
+    DoctorId : [''],
+    AnalysisType : ['']
+  })
+
   createAnalysis() {
     var body = {
       Id : this.formModel.value.Id,
@@ -40,11 +47,11 @@ export class AnalysisService {
       Description : this.formModel.value.Description,
       Result : this.formModel.value.Result
     };
-    return this.http.post(environment.baseURI + 'Analysis', body)
+    return this.http.post(environment.baseURI + '/Analysis', body)
   }
 
   getCurrentUserAnalysis(id: string) {
-    return this.http.get(environment.baseURI + 'AnalysisResult/' + id)
+    return this.http.get(environment.baseURI + '/AnalysisResult/' + id)
   }
 
   updateAnalysis(body: any) {
@@ -56,13 +63,45 @@ export class AnalysisService {
       Date : this.formModel.value.Date,
       Type : this.formModel.value.Type,
       Measure : this.formModel.value.Measure,
+      Weight: this.formModel.value.Weight,
+      Height: this.formModel.value.Height,
       Description : this.formModel.value.Description,
       Result : this.formModel.value.Result
     }
-    return this.http.put(environment.baseURI + 'AnalysisResult', body)
+    return this.http.put(environment.baseURI + '/AnalysisResult', body)
+  }
+
+  updateAnalysisAfterDetection(body: any) {
+    return this.http.put(environment.baseURI + '/AnalysisAfterDetection', body)
   }
 
   getAnalysis(id: string) {
-    return this.http.get(environment.baseURI + 'Analysis/' + id)
+    return this.http.get(environment.baseURI + '/Analysis/' + id)
+  }
+
+  createAnalysisDetection() {
+    var body = {
+      Id : this.formModelDetection.value.Id,
+      SportsmanId : this.formModelDetection.value.SportsmanId,
+      DoctorId: this.formModelDetection.value.DoctorId,
+      AnalysisType : this.formModelDetection.value.AnalysisType
+    }
+    return this.http.post(environment.baseURI + '/AnalysisDetection', body)
+  }
+
+  getAnalysisDetection() {
+    return this.http.get(environment.baseURI + '/AnalysisDetection')
+  }
+
+  deleteAnalysisDetection(id: string) {
+    return this.http.delete(environment.baseURI + '/AnalysisDetection/' + id);
+  }
+
+  getAfterAnalysisDetection(id: string) {
+    return this.http.get(environment.baseURI + '/AnalysisAfterDetection/' + id);
+  }
+  
+  getBySectionUserType(id: string, type: string) {
+    return this.http.get(environment.baseURI + '/Analysis/' + id + '/' + type)
   }
 }

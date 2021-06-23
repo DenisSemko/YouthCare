@@ -48,6 +48,21 @@ namespace YouthCareServer.Controllers.API
             }
         }
 
+        [HttpGet("{id:Guid}/{type}")]
+        public async Task<ActionResult<IEnumerable<Analysis>>> GetBySectionUserType(Guid id, string type)
+        {
+            try
+            {
+                var result = await analysService.GetBySectionUserType(id, type);
+                if (result == null) return NotFound();
+
+                return result.ToList();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
 
         [HttpPost]
         public async Task<ActionResult<Analysis>> Add(AnalysisDto analysisDto)

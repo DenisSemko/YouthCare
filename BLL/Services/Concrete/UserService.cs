@@ -15,6 +15,8 @@ using BLL.Domain;
 using CIL.Models;
 using BLL.Services.Abstract;
 using DAL;
+using MimeKit;
+using MailKit.Net.Smtp;
 
 namespace BLL.Services.Concrete
 {
@@ -23,14 +25,16 @@ namespace BLL.Services.Concrete
         private readonly UserManager<User> _userManager;
         private readonly IConfiguration _configuration;
         private readonly ApplicationContext myDbContext;
+        private readonly EmailConfiguration emailConfig;
         private readonly IWebHostEnvironment webHostEnvironment;
 
-        public UserService(UserManager<User> userManager, IConfiguration configuration, ApplicationContext myDbContext, IWebHostEnvironment hostEnvironment)
+        public UserService(UserManager<User> userManager, IConfiguration configuration, ApplicationContext myDbContext, IWebHostEnvironment hostEnvironment, EmailConfiguration emailConfig)
         {
             this._userManager = userManager;
             this._configuration = configuration;
             this.myDbContext = myDbContext;
             this.webHostEnvironment = hostEnvironment;
+            this.emailConfig = emailConfig;
         }
 
         public async Task<AuthenticationResult> RegisterAsync(RegisterModel registerModel)
@@ -71,6 +75,25 @@ namespace BLL.Services.Concrete
                 };
             }
 
+            var emailMessage = new MimeMessage();
+            emailMessage.From.Add(new MailboxAddress(emailConfig.From));
+            emailMessage.To.Add(new MailboxAddress(newUser.Email));
+            emailMessage.Subject = "YouthCare - Welcome on Board!";
+
+            string FilePath = Path.Combine(Directory.GetCurrentDirectory(), "welcome-email.html");
+            string EmailTemplateText = File.ReadAllText(FilePath);
+            BodyBuilder emailBodyBuilder = new BodyBuilder();
+            emailBodyBuilder.HtmlBody = EmailTemplateText;
+            emailMessage.Body = emailBodyBuilder.ToMessageBody();
+
+            var client = new SmtpClient();
+            await client.ConnectAsync(emailConfig.SmtpServer, emailConfig.Port, true);
+            client.AuthenticationMechanisms.Remove("XOAUTH2");
+            await client.AuthenticateAsync(emailConfig.UserName, emailConfig.Password);
+            await client.SendAsync(emailMessage);
+            await client.DisconnectAsync(true);
+            client.Dispose();
+
             return GenerateAuthenticationResultForUser(newUser);
         }
 
@@ -109,9 +132,10 @@ namespace BLL.Services.Concrete
                 {
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                     new Claim(ClaimTypes.Name, user.UserName),
+                    new Claim(ClaimTypes.Role, user.UserType),
                     new Claim("id", user.Id.ToString())
                 }),
-                Expires = DateTime.UtcNow.AddHours(3),
+                Expires = DateTime.UtcNow.AddHours(6),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
                 Issuer = _configuration["JWT:ValidIssuer"],
                 Audience = _configuration["JWT:ValidAudience"]
@@ -122,7 +146,9 @@ namespace BLL.Services.Concrete
             return new AuthenticationResult
             {
                 Success = true,
-                AccessToken = tokenHandler.WriteToken(token)
+                AccessToken = tokenHandler.WriteToken(token),
+                Username = user.UserName,
+                UserType = user.UserType
             };
         }
         private string UploadedFile(RegisterModel model)

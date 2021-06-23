@@ -1,0 +1,23 @@
+<div class="content" *ngIf="doctorsList">
+    <div class="search-hero">
+        <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="Search your doctor by name or surname">
+    </div>
+    <div fxLayout="row wrap" fxLayoutGap="16px grid">
+        <div fxFlex="20%" fxFlex.xs="100%" fxFlex.sm="33%" *ngFor="let doctor of doctorsList | filter:searchText">
+            <mat-card class="mat-elevation-z4">
+            <div class="img-mat-card">
+                <img mat-card-image src="https://www.w3schools.com/howto/img_avatar.png">
+            </div>
+            <mat-card-content>
+                <div class="card-body p-1"><mat-icon>person</mat-icon>
+                    <h6 class="card-title">
+                        {{doctor.name}} {{doctor.surname}} <br>
+                        <strong>{{doctor.userName}}</strong><br>
+                    </h6>
+                    <button mat-raised-button type="submit" class="btn btn-danger btn-round" routerLink="/sportsman/chat/{{doctor.userName}}" routerLinkActive="active">Mail me!</button>
+                </div>
+            </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+</div><br>

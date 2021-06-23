@@ -1,0 +1,10 @@
+.row {
+    display: flex;
+    flex-wrap: wrap;
+}
+.col-2 {
+    position: relative;
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+}

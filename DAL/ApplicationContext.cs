@@ -12,6 +12,7 @@ namespace DAL
     public class ApplicationContext : IdentityDbContext<User, IdentityRole<Guid>, Guid>
     {
         public DbSet<Section> Section { get; set; }
+        public DbSet<AnalysisDetection> AnalysisDetection { get; set; }
         public DbSet<SportsmanNote> SportsmanNote { get; set; }
         public DbSet<Analysis> Analysis { get; set; }
         public DbSet<Message> Message { get; set; }

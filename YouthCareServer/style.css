@@ -1,0 +1,41 @@
+﻿body {
+    background-color: #ebe8e8;
+}
+
+.title {
+    text-align: center;
+    color: #7d7373;
+    font-family: "Goudy Old Style";
+    font-size: 25px;
+}
+
+.info {
+    font-family: "Goudy Old Style";
+    font-size: 25px;
+    display: flex;
+    justify-content: center;
+}
+
+table {
+    width: 70%;
+    border-collapse: collapse;
+}
+
+td, th {
+    border: 1px solid gray;
+    padding: 15px;
+    font-size: 20px;
+    text-align: center;
+    font-family: "Goudy Old Style";
+}
+
+table th {
+    background-color: #EB4946;
+    color: white;
+}
+
+.end {
+    float: right;
+    font-family: "Goudy Old Style";
+    font-size: 25px;
+}

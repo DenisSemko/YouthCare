@@ -11,6 +11,9 @@ using Microsoft.EntityFrameworkCore;
 using CIL.DTOs;
 using AutoMapper;
 using DAL;
+using DinkToPdf;
+using System.IO;
+using DinkToPdf.Contracts;
 
 namespace YouthCareServer.Controllers.API
 {
@@ -21,13 +24,15 @@ namespace YouthCareServer.Controllers.API
         private readonly IAnalysisService analysisService;
         private readonly IAnalysisResultService analysisResultService;
         private readonly ApplicationContext myDbContext;
+        private readonly IConverter converter;
         private readonly IMapper mapper;
-        public AnalysisResultController(IAnalysisService analysisService, ApplicationContext myDbContext, IMapper mapper, IAnalysisResultService analysisResultService)
+        public AnalysisResultController(IAnalysisService analysisService, ApplicationContext myDbContext, IMapper mapper, IAnalysisResultService analysisResultService, IConverter converter)
         {
             this.analysisService = analysisService;
             this.myDbContext = myDbContext;
             this.mapper = mapper;
             this.analysisResultService = analysisResultService;
+            this.converter = converter;
         }
 
         [HttpGet("{id:Guid}")]
@@ -70,6 +75,28 @@ namespace YouthCareServer.Controllers.API
 
                 };
                 await analysisService.Update(analysis);
+
+                var globalSettings = new GlobalSettings
+                {
+                    Orientation = Orientation.Portrait,
+                    PaperSize = PaperKind.A4,
+                    DocumentTitle = "YouthCare_Analysis_Report",
+                    Out = @"D:\YouthCare_Analysis_Report.pdf"
+                };
+
+                var objectSettings = new ObjectSettings
+                {
+                    PagesCount = true,
+                    HtmlContent = analysisService.GetPdfResult(),
+                    WebSettings = { DefaultEncoding = "utf-8", UserStyleSheet = Path.Combine(Directory.GetCurrentDirectory(), "style.css") }
+                };
+                var pdf = new HtmlToPdfDocument()
+                {
+                    GlobalSettings = globalSettings,
+                    Objects = { objectSettings }
+                };
+                var file = converter.Convert(pdf);
+
                 return analysis;
             }
             catch (Exception)

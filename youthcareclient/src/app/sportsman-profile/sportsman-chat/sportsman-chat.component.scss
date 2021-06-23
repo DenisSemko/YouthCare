@@ -1,0 +1,136 @@
+.card {
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 867px;
+    margin-left: 20%;
+    height: calc(100% - 50px);
+    border: var(--border);
+    border-radius: 5px;
+    background: var(--msger-bg);
+    box-shadow: 0 15px 15px -5px rgba(0, 0, 0, 0.2);
+    background-image: url(https://images.unsplash.com/photo-1537746925586-406c7c8dc687?ixid=MnwxMjA3fDB8MHxjb2xsZWN0aW9uLXBhZ2V8NHwxNDA2NTk5fHxlbnwwfHx8fA%3D%3D&ixlib=rb-1.2.1&w=1000&q=80);
+    background-size: 100%;
+  }
+  .no-messages{
+    font-family: 'Yu Gothic';
+    font-size: 15px;
+    color: white;
+    display: flex;
+    justify-content: center;
+  }
+  .header-title {
+    font-family: 'Yu Gothic';
+    font-size: 15px;
+    color: white;
+    margin: 10px;
+  }
+  
+  .msger-input {
+    flex: 1;
+  }
+  .msger-send-btn {
+    background: #05728f none repeat scroll 0 0;
+    border: medium none;
+    border-radius: 50%;
+    color: #fff;
+    cursor: pointer;
+    font-size: 17px;
+    height: 35px;
+    right: 0;
+    top: 11px;
+    width: 35px;
+  }
+  .msger-send-btn:hover {
+    background: #a7a7e8;
+  }
+  
+  .message-box {
+    display: flex;
+    align-items: baseline;
+    padding: 10px 15px;
+    align-items: center;
+    margin-top: 19px;
+    bottom: 0;
+    
+    input {
+      margin: 0 10px;
+      padding: 6px 2px;
+      color: white;
+    }
+  }
+  .chat{
+    list-style-type: none;
+    color: white;
+    font-family: 'Yu Gothic';
+    font-size: 18px;
+  }
+  .fa-clock-o {
+    font-size: 12px;
+    font-style: italic;
+  }
+  .message-body {
+    overflow: scroll;
+    height: 510px;
+    flex: 1 1 auto;
+    min-height: 1px;
+  }
+  
+  //
+  .publisher {
+    position: relative;
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    padding: 12px 20px;
+    background-color: #f9fafb
+}
+
+.publisher>*:first-child {
+    margin-left: 0
+}
+
+.publisher>* {
+    margin: 0 8px
+}
+
+.publisher-input {
+    -webkit-box-flex: 1;
+    flex-grow: 1;
+    border: none;
+    outline: none !important;
+    background-color: transparent
+}
+
+button,
+input,
+optgroup,
+select,
+textarea {
+    font-family: Roboto, sans-serif;
+    font-weight: 300
+}
+
+.publisher-btn {
+    background-color: transparent;
+    border: none;
+    color: #8b95a5;
+    font-size: 16px;
+    cursor: pointer;
+    overflow: -moz-hidden-unscrollable;
+    -webkit-transition: .2s linear;
+    transition: .2s linear
+}
+
+.publisher-btn {
+    background-color: transparent;
+    border: none;
+    color: #cac7c7;
+    font-size: 16px;
+    cursor: pointer;
+    overflow: -moz-hidden-unscrollable;
+    -webkit-transition: .2s linear;
+    transition: .2s linear
+}

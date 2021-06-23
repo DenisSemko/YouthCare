@@ -39,4 +39,8 @@ export class SidebarSportsmanComponent implements OnInit {
     );
   };
 
+  nextVersion() {
+    this.toastr.warning("This feature will be deployed in next version!");
+  }
+
 }

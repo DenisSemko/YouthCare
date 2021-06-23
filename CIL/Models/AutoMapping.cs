@@ -16,6 +16,11 @@ namespace CIL.Models
                  .ForMember(d => d.SportsmanUserId, o => o.MapFrom(s => s))
                  .ForMember(d => d.DoctorUserId, o => o.MapFrom(s => s));
             CreateMap<AnalysisDto, User>();
+            CreateMap<NoteDto, SportsmanNote>()
+                 .ForMember(d => d.SportsmanUserId, o => o.MapFrom(s => s.SportsmanUserId));
+            CreateMap<Message, MessageDto>()
+                .ForMember(d => d.SenderId, o => o.MapFrom(s => s.SenderId.Id))
+                .ForMember(d => d.RecepientId, o => o.MapFrom(s => s.RecepientId.Id));
         }
     }
 }

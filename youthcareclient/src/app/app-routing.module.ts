@@ -17,6 +17,11 @@ import { SportsmanProfileComponent } from './sportsman-profile/sportsman-profile
 import { DoctorProfileComponent } from './doctor-profile/doctor-profile/doctor-profile.component';
 import { SportsmenListComponent } from './doctor-profile/sportsmen-list/sportsmen-list.component';
 import { AnalysisComponent } from './sportsman-profile/analysis/analysis.component';
+import { NotesBodyComponent } from './sportsman-profile/notes-body/notes-body.component';
+import { ChatComponent } from './sportsman-profile/chat/chat.component';
+import { DoctorListComponent } from './sportsman-profile/doctor-list/doctor-list.component';
+import { SportsmanChatComponent } from './sportsman-profile/sportsman-chat/sportsman-chat.component';
+import { AnalysisListComponent } from 'src/app/doctor-profile/analysis-list/analysis-list.component';
 
 const routes: Routes = [
   {
@@ -67,6 +72,26 @@ const routes: Routes = [
       path: 'analysis',
         component: AnalysisComponent,
         canActivate:[AuthGuard]
+    },
+    {
+      path: 'account/note/new',
+        component: NotesBodyComponent,
+        canActivate:[AuthGuard]
+    },
+    {
+      path: 'messages',
+      component: ChatComponent,
+      canActivate:[AuthGuard]
+    },
+    {
+      path: 'doctors',
+      component: DoctorListComponent,
+      canActivate:[AuthGuard]
+    },
+    {
+      path: 'chat/:username',
+      component: SportsmanChatComponent,
+      canActivate:[AuthGuard]
     }]
   },
   {
@@ -85,6 +110,16 @@ const routes: Routes = [
     {
       path: 'sportsmen-list',
       component: SportsmenListComponent,
+      canActivate:[AuthGuard]
+    },
+    {
+      path: 'analysis-list',
+      component: AnalysisListComponent,
+      canActivate:[AuthGuard]
+    },
+    {
+      path: 'chat/:username',
+      component: SportsmanChatComponent,
       canActivate:[AuthGuard]
     }]
   },

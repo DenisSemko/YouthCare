@@ -22,5 +22,32 @@ namespace DAL.Repository.Concrete
             return result;
         }
 
+        public async Task<Analysis> GetAnalysisByUserId(Guid id)
+        {
+            var analysis = await myDbContext.Analysis
+                .Where(a => a.SportsmanUserId.Id == id)
+                .Where(a => a.DoctorUserId != null)
+                .Where(a => a.Description == null)
+                .Where(a => a.Result == null)
+                .Where(m => m.Measure != 0)
+                .Include(a => a.SportsmanUserId)
+                .Include(a => a.DoctorUserId).FirstOrDefaultAsync();
+            return analysis;
+        }
+
+        public async Task<IEnumerable<Analysis>> GetBySectionUserType(Guid id, string type)
+        {
+            try
+            {
+                var result = await myDbContext.Analysis.Where(o => o.SportsmanUserId.BelongSection.Id == id).Where(o => o.SportsmanUserId.UserType == type).Include(o => o.SportsmanUserId.BelongSection).ToListAsync();
+
+                return result;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
     }
 }

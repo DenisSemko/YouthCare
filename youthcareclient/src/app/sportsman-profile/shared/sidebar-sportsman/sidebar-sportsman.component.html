@@ -20,16 +20,16 @@
     <a mat-list-item routerLinkActive="list-item-active" routerLink="/sportsman/analysis">
         <mat-icon>description</mat-icon>
         {{'sidebar-all.analysis' | translate}} </a>
-    <a mat-list-item routerLinkActive="list-item-active" routerLink="/"><mat-icon>done</mat-icon>
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="/sportsman/doctors"><mat-icon>done</mat-icon>
         {{'sidebar-all.call_doctor' | translate}}</a>
         
     <mat-divider></mat-divider>
     <h2 matSubheader>{{'sidebar-all.activity_2' | translate}}</h2>
-    <a mat-list-item routerLinkActive="list-item-active" routerLink="/">
+    <a mat-list-item (click)="nextVersion();">
     <mat-icon>schedule</mat-icon>
     {{'sidebar-all.schedule' | translate}}
     </a>
-    <a mat-list-item routerLinkActive="list-item-active" routerLink="/">
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="/sportsman/messages">
         <mat-icon>text_rotation_none</mat-icon>
         {{'sidebar-all.chat' | translate}}
     </a>

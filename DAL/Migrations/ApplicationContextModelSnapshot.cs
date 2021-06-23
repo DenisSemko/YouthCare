@@ -64,6 +64,26 @@ namespace DAL.Migrations
                     b.ToTable("Analysis");
                 });
 
+            modelBuilder.Entity("CIL.Models.AnalysisDetection", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("AnalysisType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("DoctorId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("SportsmanId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AnalysisDetection");
+                });
+
             modelBuilder.Entity("CIL.Models.Message", b =>
                 {
                     b.Property<Guid>("Id")
@@ -73,14 +93,23 @@ namespace DAL.Migrations
                     b.Property<string>("Content")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime?>("MessageRead")
+                        .HasColumnType("datetime2");
+
                     b.Property<DateTime>("MessageSent")
                         .HasColumnType("datetime2");
+
+                    b.Property<bool>("RecepientDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<Guid?>("RecepientIdId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("RecepientUsername")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("SenderDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<Guid?>("SenderIdId")
                         .HasColumnType("uniqueidentifier");

@@ -1,0 +1,43 @@
+<div class="card">
+    <div class="card-header">
+        <div class="header-title">
+            YouthCare Chat
+        </div>
+    </div>
+    <div class="no-messages" *ngIf="messages?.length === 0">
+        There are no messages yet! Use the message box below!
+    </div>
+    <div class="message-body"> 
+        <ul *ngIf="messages?.length > 0" class="chat">
+            <li *ngFor="let message of messages">
+                <div>
+                    <img class="avatar avatar-xs" src="https://img.icons8.com/color/36/000000/administrator-male.png" alt="..."> 
+                    <span class="chat-img float-right">
+                        {{message.senderUsername}}
+                    </span>
+                    <div class="chat-body">
+                        <div class="header">
+                            <small class="text-muted">
+                                <span class="fa fa-clock-o">{{message.messageSent | date:'fullTime'}}</span>
+                            </small>
+                        </div><br>
+                        <p>{{message.content}}</p>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="card-footer">
+        <form #messageForm="ngForm" (ngSubmit)="sendMessageInitial()" autocomplete="off">
+            <div class="publisher bt-1 border-light">
+                <img class="avatar avatar-xs" src="https://img.icons8.com/color/36/000000/administrator-male.png" alt="..."> 
+                <input placeholder="Send a private message" [(ngModel)]="messageContent" class="publisher-input" name="messageContent" type="text">
+                <div class="input-group-append">
+                    <button [disabled]="!messageForm.valid" class="btn btn-primary msger-send-btn" type="submit"><mat-icon>send</mat-icon></button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+

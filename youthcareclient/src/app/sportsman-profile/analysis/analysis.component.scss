@@ -25,6 +25,7 @@
     flex-direction: column;
     min-width: 0;
     word-wrap: break-word;
+    height: 80%;
 }
 .card-header {
     border-radius: 3px;
@@ -33,6 +34,14 @@
 }
 .card .card-header-danger {
     background: linear-gradient(60deg,#ef5350,#e53935);
+    box-shadow: 0 4px 20px 0 rgb(0 0 0 / 14%), 0 7px 10px -5px rgb(244 67 54 / 40%);
+    margin: 0 15px;
+    padding: 0;
+    position: relative;
+    color: #fff;
+}
+.card .card-header-blue {
+    background: linear-gradient(60deg,#778bcc,#8089c2);
     box-shadow: 0 4px 20px 0 rgb(0 0 0 / 14%), 0 7px 10px -5px rgb(244 67 54 / 40%);
     margin: 0 15px;
     padding: 0;
@@ -96,6 +105,15 @@
     height: 40px;
     float: right;
 }
+
+.btn-blue {
+    color: #fff;
+    background-color: #778bcc;
+    border-color:#778bcc;
+    height: 40px;
+    float: right;
+}
+
 table {
     width: 100%;
   }

@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  baseURI: "https://youth-care.azurewebsites.net/api/"
+  baseURI: "https://youth-care.azurewebsites.net/api/",
+  hubUrl: "https://youth-care.azurewebsites.net/hubs/"
 };
 
 /*
