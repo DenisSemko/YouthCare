@@ -81,5 +81,29 @@
     "doctor-sportsmen-list": {
         "title": "Sportsmen list of the",
         "title_2": "Section"
+    },
+    "analysis-list": {
+        "click": "click me",
+        "title": "Sportsmen Analysis list of",
+        "title_2": "Section"
+    },
+    "chat": {
+        "unread": "Unread",
+        "inbox": "Inbox",
+        "outbox": "Outbox",
+        "no": "No messages"
+    },
+    "dashboard": {
+        "add": "Add Note"
+    },
+    "doctor-card": {
+        "mail": "Mail me!"
+    }
+    ,
+    "note": {
+        "card-title": "New Note",
+        "card-category": "Date: ",
+        "title": "Title: ",
+        "description": "Description: "
     }
 }
