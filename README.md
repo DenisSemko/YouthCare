@@ -26,7 +26,7 @@ It supports localization for two languages:
 
 ## Technologies Used
 - ASP.NET Core 3.1
-- Angular 11
+- Angular 11 & Angular Material
 - C#
 - TypeScript
 - MSSQL
@@ -78,5 +78,5 @@ Created by [@dench327](https://linkedin.com/in/https://www.linkedin.com/in/denis
 © 2021
 
 ## License
-> You can check out the full license [here](https://github.com/DenisSemko/SecondChance/blob/master/LICENSE.md)
+> You can check out the full license [here](https://github.com/DenisSemko/YouthCare/tree/master)
 This project is licensed under the terms of the MIT license.
