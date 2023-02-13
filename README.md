@@ -1,4 +1,4 @@
-<img src="https://user-images.githubusercontent.com/53062219/218428707-76f92e29-cb77-4469-aab2-ed1b38a379b0.png" alt="logo" title="logo" align="right" height="60" />
+<img src="https://user-images.githubusercontent.com/53062219/218428707-76f92e29-cb77-4469-aab2-ed1b38a379b0.png" alt="logo" title="logo" align="right" height="100" />
 
 # YouthCare
 > Software System for automation of health control in youth sports.
